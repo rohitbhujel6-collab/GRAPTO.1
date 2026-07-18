@@ -1,0 +1,229 @@
+/* =====================================================
+   GRAPTO
+   PAGE SECTIONS
+=====================================================*/
+
+/* ===========================
+   SECTION HEADER
+=========================== */
+
+.section-header{
+    text-align:center;
+    max-width:760px;
+    margin:0 auto 60px;
+}
+
+.section-tag{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    background:#EAF8F3;
+    color:var(--primary);
+    font-size:.85rem;
+    font-weight:700;
+    letter-spacing:.08em;
+    margin-bottom:18px;
+    text-transform:uppercase;
+}
+
+.section-title{
+    font-size:2.6rem;
+    font-weight:800;
+    color:var(--heading);
+    margin-bottom:18px;
+    line-height:1.2;
+}
+
+.section-description{
+    font-size:1.05rem;
+    color:var(--text);
+    line-height:1.8;
+}
+
+/* ===========================
+   SERVICES
+=========================== */
+
+.service-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,minmax(280px,1fr));
+
+    gap:30px;
+
+}
+
+.service-card{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:38px;
+
+    border:1px solid #ECF1F4;
+
+    transition:.35s;
+
+    box-shadow:0 8px 24px rgba(0,0,0,.04);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.service-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:5px;
+
+    height:100%;
+
+    background:var(--primary);
+
+    transform:scaleY(0);
+
+    transition:.35s;
+
+    transform-origin:top;
+
+}
+
+.service-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 18px 45px rgba(0,0,0,.10);
+
+}
+
+.service-card:hover::before{
+
+    transform:scaleY(1);
+
+}
+
+.service-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:18px;
+
+    background:#EEF8F5;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:24px;
+
+}
+
+.service-icon i{
+
+    font-size:30px;
+
+    color:var(--primary);
+
+}
+
+.service-card h3{
+
+    font-size:1.35rem;
+
+    margin-bottom:14px;
+
+    color:var(--heading);
+
+}
+
+.service-card p{
+
+    color:var(--text);
+
+    line-height:1.8;
+
+    margin-bottom:24px;
+
+}
+
+.service-link{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.service-link:hover{
+
+    gap:14px;
+
+}
+
+/* ===========================
+   PLACEHOLDER SECTIONS
+=========================== */
+
+.placeholder-section{
+
+    padding:90px 0;
+
+}
+
+.placeholder-box{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    border:2px dashed #DCE7E2;
+
+    padding:70px;
+
+    text-align:center;
+
+}
+
+.placeholder-box h3{
+
+    font-size:1.8rem;
+
+    margin-bottom:18px;
+
+    color:var(--heading);
+
+}
+
+.placeholder-box p{
+
+    color:var(--text);
+
+    max-width:700px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+}
