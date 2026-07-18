@@ -221,3 +221,115 @@ border-radius:20px;
 background:var(--primary-dark);
 
 }
+/* ==========================================
+   HEADER & NAVIGATION
+========================================== */
+
+header{
+
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:1000;
+
+background:rgba(255,255,255,.95);
+
+backdrop-filter:blur(14px);
+
+border-bottom:1px solid rgba(0,0,0,.05);
+
+}
+
+nav{
+
+height:80px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+}
+
+.logo img{
+
+height:52px;
+
+width:auto;
+
+}
+
+.menu{
+
+display:flex;
+
+align-items:center;
+
+gap:35px;
+
+}
+
+.menu a{
+
+font-size:.95rem;
+
+font-weight:600;
+
+color:var(--heading);
+
+position:relative;
+
+}
+
+.menu a::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+bottom:-8px;
+
+width:0;
+
+height:2px;
+
+background:var(--primary);
+
+transition:.3s;
+
+}
+
+.menu a:hover{
+
+color:var(--primary);
+
+}
+
+.menu a:hover::after{
+
+width:100%;
+
+}
+
+
+/* HEADER BUTTON */
+
+header .btn{
+
+padding:12px 28px;
+
+font-size:.95rem;
+
+}
+
+
+/* HERO SPACING */
+
+main{
+
+margin-top:80px;
+
+}
