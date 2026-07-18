@@ -1,218 +1,602 @@
-/* ==========================================
+/* =====================================================
    GRAPTO COMPONENTS
-========================================== */
+   Version 1.0
+===================================================== */
 
+/* ===========================
+   NAVBAR
+=========================== */
 
-/* CONTAINER */
+.header{
 
-.container{
+    position:sticky;
 
-width:min(var(--container),92%);
-margin:auto;
+    top:0;
 
-}
+    left:0;
 
+    width:100%;
 
-/* SECTION */
+    z-index:999;
 
-.section{
+    background:#ffffff;
 
-padding:100px 0;
+    border-bottom:1px solid rgba(0,0,0,.06);
 
-}
+    backdrop-filter:blur(20px);
 
-
-/* SECTION HEADER */
-
-.section-header{
-
-text-align:center;
-margin-bottom:60px;
+    transition:.35s ease;
 
 }
 
-.section-tag{
+.nav-container{
 
-display:inline-block;
+    height:88px;
 
-padding:8px 18px;
+    display:flex;
 
-background:#E7F8F2;
+    align-items:center;
 
-color:var(--primary);
-
-font-size:.85rem;
-
-font-weight:700;
-
-border-radius:50px;
-
-margin-bottom:18px;
-
-letter-spacing:.5px;
+    justify-content:space-between;
 
 }
 
-.section-title{
+/* ===========================
+LOGO
+=========================== */
 
-font-size:2.8rem;
+.logo{
 
-font-weight:700;
+    display:flex;
 
-color:var(--heading);
-
-margin-bottom:20px;
-
-}
-
-.section-description{
-
-max-width:760px;
-
-margin:auto;
-
-color:var(--text);
-
-line-height:1.8;
+    align-items:center;
 
 }
 
+.logo img{
 
-/* BUTTONS */
+    width:175px;
+
+    height:auto;
+
+    display:block;
+
+}
+
+/* ===========================
+NAVIGATION
+=========================== */
+
+.nav-menu{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:34px;
+
+    list-style:none;
+
+}
+
+.nav-menu li{
+
+    list-style:none;
+
+}
+
+.nav-menu a{
+
+    text-decoration:none;
+
+    color:var(--dark);
+
+    font-weight:600;
+
+    font-size:.97rem;
+
+    transition:.3s ease;
+
+    position:relative;
+
+}
+
+.nav-menu a:hover{
+
+    color:var(--primary);
+
+}
+
+.nav-menu a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--primary);
+
+    transition:.3s;
+
+}
+
+.nav-menu a:hover::after{
+
+    width:100%;
+
+}/* ===========================
+   BUTTONS
+=========================== */
 
 .btn{
 
-display:inline-flex;
+    display:inline-flex;
 
-align-items:center;
+    align-items:center;
 
-justify-content:center;
+    justify-content:center;
 
-padding:15px 34px;
+    gap:10px;
 
-border-radius:50px;
+    padding:16px 34px;
 
-font-weight:600;
+    border:none;
 
-cursor:pointer;
+    border-radius:14px;
 
-transition:var(--transition);
+    text-decoration:none;
 
-text-decoration:none;
+    font-size:.98rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all .35s ease;
+
+    user-select:none;
 
 }
 
 .btn-primary{
 
-background:var(--primary);
+    background:var(--primary);
 
-color:#fff;
+    color:#ffffff;
+
+    box-shadow:0 12px 28px rgba(18,115,71,.25);
 
 }
 
 .btn-primary:hover{
 
-background:var(--primary-dark);
+    background:#0f5e3b;
 
-transform:translateY(-3px);
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 38px rgba(18,115,71,.35);
 
 }
 
 .btn-secondary{
 
-background:#fff;
+    background:#ffffff;
 
-border:2px solid var(--border);
+    color:var(--dark);
 
-color:var(--heading);
+    border:1px solid rgba(0,0,0,.08);
+
+    box-shadow:0 10px 28px rgba(0,0,0,.06);
 
 }
 
 .btn-secondary:hover{
 
-background:var(--light);
+    background:#f5f7f8;
 
-transform:translateY(-3px);
+    transform:translateY(-3px);
+
+    box-shadow:0 18px 36px rgba(0,0,0,.10);
 
 }
 
+.btn-outline{
 
-/* CARD */
+    background:transparent;
+
+    color:var(--primary);
+
+    border:2px solid var(--primary);
+
+}
+
+.btn-outline:hover{
+
+    background:var(--primary);
+
+    color:#ffffff;
+
+}
+
+/* ===========================
+   GLOBAL CARD
+=========================== */
 
 .card{
 
-background:#fff;
+    background:#ffffff;
 
-border-radius:var(--radius);
+    border-radius:24px;
 
-box-shadow:var(--shadow-sm);
+    border:1px solid rgba(0,0,0,.06);
 
-padding:35px;
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
 
-transition:var(--transition);
-
-border:1px solid var(--border);
+    transition:all .35s ease;
 
 }
 
 .card:hover{
 
-transform:translateY(-8px);
+    transform:translateY(-8px);
 
-box-shadow:var(--shadow);
+    box-shadow:0 22px 55px rgba(0,0,0,.12);
+
+}/* ===========================
+   ICON CONTAINERS
+=========================== */
+
+.icon-box{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:linear-gradient(135deg,var(--primary),#1b8b58);
+
+    color:#ffffff;
+
+    font-size:28px;
+
+    box-shadow:0 14px 35px rgba(18,115,71,.25);
+
+    transition:.35s ease;
+
+}
+
+.icon-box:hover{
+
+    transform:rotate(-6deg) scale(1.06);
 
 }
 
+/* ===========================
+   BADGES
+=========================== */
 
-/* IMAGE */
+.badge{
 
-.image-box{
+    display:inline-flex;
 
-overflow:hidden;
+    align-items:center;
 
-border-radius:var(--radius);
+    justify-content:center;
 
-box-shadow:var(--shadow);
+    padding:8px 18px;
+
+    border-radius:50px;
+
+    background:rgba(18,115,71,.10);
+
+    color:var(--primary);
+
+    font-size:.82rem;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+}
+
+/* ===========================
+   PLACEHOLDER IMAGE
+=========================== */
+
+.image-placeholder{
+
+    width:100%;
+
+    aspect-ratio:16/10;
+
+    border-radius:24px;
+
+    background:#eef2f4;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#9aa5b1;
+
+    font-weight:600;
+
+    overflow:hidden;
 
 }
 
-.image-box img{
+.image-placeholder img{
 
-width:100%;
+    width:100%;
 
-display:block;
+    height:100%;
 
-transition:.4s;
-
-}
-
-.image-box:hover img{
-
-transform:scale(1.05);
+    object-fit:cover;
 
 }
 
+/* ===========================
+   DIVIDER
+=========================== */
 
-/* PLACEHOLDER */
+.divider{
 
-.placeholder{
+    width:80px;
 
-display:flex;
+    height:4px;
 
-align-items:center;
+    border-radius:50px;
 
-justify-content:center;
+    background:var(--primary);
 
-height:300px;
-
-background:var(--light);
-
-border:2px dashed var(--border);
-
-border-radius:var(--radius);
-
-color:#888;
-
-font-weight:600;
+    margin:18px auto 0;
 
 }
+
+/* ===========================
+   GLOBAL TRANSITIONS
+=========================== */
+
+a,
+button,
+.card,
+.btn,
+.icon-box{
+
+    transition:all .35s ease;
+
+}/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    padding:16px 20px;
+
+    border:1px solid rgba(0,0,0,.10);
+
+    border-radius:14px;
+
+    background:#ffffff;
+
+    font-size:1rem;
+
+    color:var(--dark);
+
+    outline:none;
+
+    transition:all .30s ease;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(18,115,71,.12);
+
+}
+
+/* =====================================================
+   LIST RESET
+===================================================== */
+
+ul,
+ol{
+
+    margin:0;
+
+    padding:0;
+
+}
+
+li{
+
+    list-style:none;
+
+}
+
+/* =====================================================
+   IMAGE SETTINGS
+===================================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* =====================================================
+   UTILITY CLASSES
+===================================================== */
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+.w-100{
+
+    width:100%;
+
+}
+
+.mt-20{
+
+    margin-top:20px;
+
+}
+
+.mt-40{
+
+    margin-top:40px;
+
+}
+
+.mb-20{
+
+    margin-bottom:20px;
+
+}
+
+.mb-40{
+
+    margin-bottom:40px;
+
+}
+
+/* =====================================================
+   LOADING PLACEHOLDER
+===================================================== */
+
+.skeleton{
+
+    background:linear-gradient(
+        90deg,
+        #f2f4f7 25%,
+        #e5e7eb 50%,
+        #f2f4f7 75%
+    );
+
+    background-size:200% 100%;
+
+    animation:skeleton-loading 1.4s infinite;
+
+    border-radius:16px;
+
+}
+
+@keyframes skeleton-loading{
+
+    0%{
+
+        background-position:200% 0;
+
+    }
+
+    100%{
+
+        background-position:-200% 0;
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE COMPONENTS
+===================================================== */
+
+@media(max-width:992px){
+
+    .nav-menu{
+
+        gap:22px;
+
+    }
+
+    .btn{
+
+        padding:15px 28px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .nav-container{
+
+        height:76px;
+
+    }
+
+    .logo img{
+
+        width:145px;
+
+    }
+
+    .btn{
+
+        width:100%;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .icon-box{
+
+        width:60px;
+
+        height:60px;
+
+        font-size:22px;
+
+    }
+
+}
+
+/* =====================================================
+   END OF FILE
+===================================================== */
