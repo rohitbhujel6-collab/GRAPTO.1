@@ -1,0 +1,60 @@
+/* ==========================================
+   GRAPTO DESIGN SYSTEM
+   Variables
+========================================== */
+
+:root{
+
+/* Brand */
+
+--primary:#0B8F6A;
+--primary-dark:#08775A;
+
+--secondary:#0F172A;
+
+--accent:#34D399;
+
+
+/* Neutral */
+
+--white:#ffffff;
+
+--light:#F8FAFC;
+
+--light-2:#EEF2F7;
+
+--border:#E5E7EB;
+
+--text:#334155;
+
+--heading:#0F172A;
+
+
+/* Shadows */
+
+--shadow-sm:0 5px 15px rgba(0,0,0,.06);
+
+--shadow:0 15px 35px rgba(0,0,0,.08);
+
+--shadow-lg:0 30px 70px rgba(0,0,0,.12);
+
+
+/* Radius */
+
+--radius-sm:12px;
+
+--radius:20px;
+
+--radius-lg:30px;
+
+
+/* Transition */
+
+--transition:.35s ease;
+
+
+/* Width */
+
+--container:1200px;
+
+}
