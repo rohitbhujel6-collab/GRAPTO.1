@@ -1,22 +1,28 @@
-// Import the functions you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+// ==========================
+// FIREBASE CONFIG
+// ==========================
 
-// Firebase configuration
+// Firebase SDK
 const firebaseConfig = {
-  apiKey: "AIzaSyBCMicdBRjjadd_zGXdI5WbxHaAaMd7-Pc",
-  authDomain: "grapto-43823.firebaseapp.com",
-  databaseURL: "https://grapto-43823-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "grapto-43823",
-  storageBucket: "grapto-43823.firebasestorage.app",
-  messagingSenderId: "80168453473",
-  appId: "1:80168453473:web:97e36df4aa50cb60a2b120"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "grapto-43823.firebaseapp.com",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "grapto-43823",
+    storageBucket: "grapto-43823.firebasestorage.app",
+    messagingSenderId: "80168453473",
+    appId: "1:80168453473:web:97e36df4aa50cb60a2b120"
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-// Initialize Realtime Database
-const database = getDatabase(app);
+// Database
+const db = firebase.database();
 
-export { app, database };
+// Storage
+const storage = firebase.storage();
+
+// Authentication
+const auth = firebase.auth();
+
+console.log("Firebase Connected Successfully");
