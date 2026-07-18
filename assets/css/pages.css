@@ -1,100 +1,136 @@
-/* =====================================================
-   GRAPTO
+/* ==========================================
    PAGE SECTIONS
-=====================================================*/
+========================================== */
 
-/* ===========================
+.section{
+
+    padding:120px 0;
+
+    position:relative;
+
+}
+
+.section:nth-child(even){
+
+    background:#ffffff;
+
+}
+
+.bg-light{
+
+    background:#f8faf9;
+
+}
+
+.container{
+
+    width:min(1180px,92%);
+
+    margin:auto;
+
+}
+
+/* ==========================================
    SECTION HEADER
-=========================== */
+========================================== */
 
 .section-header{
+
     text-align:center;
+
     max-width:760px;
-    margin:0 auto 60px;
+
+    margin:0 auto 70px;
+
 }
 
 .section-tag{
-    display:inline-block;
-    padding:8px 18px;
-    border-radius:30px;
-    background:#EAF8F3;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    background:rgba(18,115,71,.08);
+
     color:var(--primary);
-    font-size:.85rem;
+
+    font-size:.82rem;
+
     font-weight:700;
+
     letter-spacing:.08em;
-    margin-bottom:18px;
+
     text-transform:uppercase;
+
+    margin-bottom:20px;
+
 }
 
 .section-title{
-    font-size:2.6rem;
+
+    font-size:clamp(2rem,4vw,3rem);
+
+    color:var(--dark);
+
     font-weight:800;
-    color:var(--heading);
-    margin-bottom:18px;
-    line-height:1.2;
+
+    line-height:1.15;
+
+    margin-bottom:22px;
+
 }
 
 .section-description{
-    font-size:1.05rem;
-    color:var(--text);
-    line-height:1.8;
+
+    font-size:1.08rem;
+
+    color:#6b7280;
+
+    line-height:1.9;
+
 }
 
-/* ===========================
+/* ==========================================
    SERVICES
-=========================== */
+========================================== */
 
 .service-grid{
 
     display:grid;
 
-    grid-template-columns:repeat(2,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
 
-    gap:30px;
+    gap:32px;
 
-}
+}/* ==========================================
+   SERVICE CARDS
+========================================== */
 
 .service-card{
 
     background:#ffffff;
 
-    border-radius:22px;
+    border:1px solid rgba(0,0,0,.05);
+
+    border-radius:24px;
 
     padding:38px;
 
-    border:1px solid #ECF1F4;
+    transition:all .35s ease;
 
-    transition:.35s;
+    box-shadow:0 10px 30px rgba(0,0,0,.05);
 
-    box-shadow:0 8px 24px rgba(0,0,0,.04);
+    display:flex;
 
-    position:relative;
+    flex-direction:column;
 
-    overflow:hidden;
+    justify-content:flex-start;
 
-}
-
-.service-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    top:0;
-
-    width:5px;
-
-    height:100%;
-
-    background:var(--primary);
-
-    transform:scaleY(0);
-
-    transition:.35s;
-
-    transform-origin:top;
+    min-height:300px;
 
 }
 
@@ -102,13 +138,9 @@
 
     transform:translateY(-10px);
 
-    box-shadow:0 18px 45px rgba(0,0,0,.10);
+    box-shadow:0 22px 55px rgba(0,0,0,.12);
 
-}
-
-.service-card:hover::before{
-
-    transform:scaleY(1);
+    border-color:rgba(18,115,71,.18);
 
 }
 
@@ -118,112 +150,373 @@
 
     height:72px;
 
-    border-radius:18px;
+    border-radius:20px;
 
-    background:#EEF8F5;
+    background:linear-gradient(135deg,var(--primary),#1f8a59);
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    margin-bottom:24px;
+    justify-content:center;
+
+    margin-bottom:28px;
 
 }
 
 .service-icon i{
 
-    font-size:30px;
+    color:#ffffff;
 
-    color:var(--primary);
+    font-size:28px;
 
 }
 
 .service-card h3{
 
-    font-size:1.35rem;
+    font-size:1.45rem;
 
-    margin-bottom:14px;
+    color:var(--dark);
 
-    color:var(--heading);
+    margin-bottom:18px;
+
+    font-weight:700;
 
 }
 
 .service-card p{
 
-    color:var(--text);
+    color:#667085;
 
-    line-height:1.8;
+    line-height:1.9;
 
-    margin-bottom:24px;
+    font-size:1rem;
 
-}
-
-.service-link{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:var(--primary);
-
-    font-weight:700;
-
-    transition:.3s;
-
-}
-
-.service-link:hover{
-
-    gap:14px;
-
-}
-
-/* ===========================
+}/* ==========================================
    PLACEHOLDER SECTIONS
-=========================== */
-
-.placeholder-section{
-
-    padding:90px 0;
-
-}
+========================================== */
 
 .placeholder-box{
 
     background:#ffffff;
 
-    border-radius:22px;
+    border-radius:28px;
 
-    border:2px dashed #DCE7E2;
-
-    padding:70px;
+    padding:60px;
 
     text-align:center;
+
+    border:1px solid rgba(0,0,0,.06);
+
+    box-shadow:0 15px 45px rgba(0,0,0,.06);
+
+    transition:all .35s ease;
+
+    max-width:980px;
+
+    margin:0 auto;
+
+}
+
+.placeholder-box:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 28px 60px rgba(0,0,0,.12);
 
 }
 
 .placeholder-box h3{
 
-    font-size:1.8rem;
+    font-size:2rem;
 
-    margin-bottom:18px;
+    color:var(--dark);
 
-    color:var(--heading);
+    font-weight:700;
+
+    margin-bottom:20px;
 
 }
 
 .placeholder-box p{
 
-    color:var(--text);
+    max-width:720px;
 
-    max-width:700px;
+    margin:0 auto 35px;
 
-    margin:auto;
+    color:#667085;
 
-    line-height:1.8;
+    line-height:1.9;
+
+    font-size:1.05rem;
 
 }
+
+.placeholder-box .btn{
+
+    padding:16px 34px;
+
+    border-radius:14px;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+
+    background:#0f172a;
+
+    color:#ffffff;
+
+    padding:90px 0 60px;
+
+    margin-top:120px;
+
+}
+
+footer h3{
+
+    font-size:2rem;
+
+    font-weight:800;
+
+    margin-bottom:24px;
+
+}
+
+footer p{
+
+    color:rgba(255,255,255,.75);
+
+    line-height:1.9;
+
+    margin-bottom:18px;
+
+}
+
+.social-links{
+
+    display:flex;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+
+}
+
+.social-links a{
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    padding:12px 22px;
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.social-links a:hover{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+}/* ==========================================
+   SECTION SPACING
+========================================== */
+
+.section + .section{
+
+    margin-top:0;
+
+}
+
+.section:last-of-type{
+
+    padding-bottom:140px;
+
+}
+
+/* ==========================================
+   SMOOTH TRANSITIONS
+========================================== */
+
+.section,
+.service-card,
+.placeholder-box,
+.social-links a{
+
+    transition:all .35s ease;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+.section{
+
+    padding:90px 0;
+
+}
+
+.section-header{
+
+    margin-bottom:55px;
+
+}
+
+.service-grid{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+.placeholder-box{
+
+    padding:45px;
+
+}
+
+footer{
+
+    padding:70px 0 45px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.section{
+
+    padding:70px 0;
+
+}
+
+.section-title{
+
+    font-size:2rem;
+
+}
+
+.section-description{
+
+    font-size:1rem;
+
+}
+
+.service-grid{
+
+    grid-template-columns:1fr;
+
+    gap:24px;
+
+}
+
+.service-card{
+
+    padding:30px;
+
+    min-height:auto;
+
+}
+
+.service-icon{
+
+    width:64px;
+
+    height:64px;
+
+}
+
+.service-icon i{
+
+    font-size:24px;
+
+}
+
+.placeholder-box{
+
+    padding:35px 25px;
+
+}
+
+.placeholder-box h3{
+
+    font-size:1.6rem;
+
+}
+
+.social-links{
+
+    justify-content:center;
+
+}
+
+footer{
+
+    text-align:center;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.section{
+
+    padding:60px 0;
+
+}
+
+.section-tag{
+
+    font-size:.75rem;
+
+    padding:8px 15px;
+
+}
+
+.service-card{
+
+    border-radius:20px;
+
+}
+
+.placeholder-box{
+
+    border-radius:22px;
+
+}
+
+footer h3{
+
+    font-size:1.6rem;
+
+}
+
+.social-links a{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+}
+
+/* ==========================================
+   END OF FILE
+========================================== */
