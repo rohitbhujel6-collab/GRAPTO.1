@@ -86,3 +86,75 @@ button.style.transform="translateY(0) scale(1)";
 });
 
 });
+/* =====================================================
+   HEADER SHADOW ON SCROLL
+===================================================== */
+
+const header=document.querySelector(".header");
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>40){
+
+header.classList.add("header-scrolled");
+
+}else{
+
+header.classList.remove("header-scrolled");
+
+}
+
+});
+
+/* =====================================================
+   SMOOTH PAGE LOADING
+===================================================== */
+
+window.addEventListener("load",()=>{
+
+document.body.classList.add("page-loaded");
+
+});
+
+/* =====================================================
+   ACTIVE NAVIGATION
+===================================================== */
+
+const sections=document.querySelectorAll("section[id]");
+const navLinks=document.querySelectorAll(".nav-menu a");
+
+window.addEventListener("scroll",()=>{
+
+let current="";
+
+sections.forEach(section=>{
+
+const sectionTop=section.offsetTop-120;
+
+const sectionHeight=section.clientHeight;
+
+if(window.scrollY>=sectionTop){
+
+current=section.getAttribute("id");
+
+}
+
+});
+
+navLinks.forEach(link=>{
+
+link.classList.remove("active");
+
+if(link.getAttribute("href")==="#"+current){
+
+link.classList.add("active");
+
+}
+
+});
+
+});
+
+/* =====================================================
+   END OF FILE
+===================================================== */
