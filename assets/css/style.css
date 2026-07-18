@@ -666,3 +666,16 @@ opacity:1;
 transform:translateY(0);
 
 }
+/* ==========================================
+STAGGER EFFECT
+========================================== */
+
+.service-card{
+
+transition:
+opacity .8s ease,
+transform .8s ease,
+box-shadow .35s ease,
+border-color .35s ease;
+
+}
