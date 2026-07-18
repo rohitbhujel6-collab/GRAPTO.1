@@ -1,0 +1,223 @@
+/* ==========================================
+   GRAPTO
+   Main Style Sheet
+========================================== */
+
+/* GOOGLE FONT */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+
+font-family:'Inter',sans-serif;
+
+background:#ffffff;
+
+color:var(--text);
+
+line-height:1.7;
+
+overflow-x:hidden;
+
+}
+
+
+/* LINKS */
+
+a{
+
+text-decoration:none;
+color:inherit;
+
+}
+
+
+/* LIST */
+
+ul{
+
+list-style:none;
+
+}
+
+
+/* IMAGE */
+
+img{
+
+display:block;
+
+max-width:100%;
+
+}
+
+
+/* SECTIONS */
+
+section{
+
+padding:100px 0;
+
+}
+
+
+/* HEADINGS */
+
+h1,h2,h3,h4,h5,h6{
+
+color:var(--heading);
+
+font-weight:700;
+
+line-height:1.2;
+
+}
+
+
+/* PARAGRAPH */
+
+p{
+
+color:var(--text);
+
+}
+
+
+/* BACKGROUND SEPARATION */
+
+.bg-light{
+
+background:var(--light);
+
+}
+
+.bg-white{
+
+background:#ffffff;
+
+}
+
+.bg-dark{
+
+background:var(--secondary);
+
+color:#ffffff;
+
+}
+
+
+/* TEXT ALIGN */
+
+.text-center{
+
+text-align:center;
+
+}
+
+
+/* GRID */
+
+.grid{
+
+display:grid;
+
+gap:30px;
+
+}
+
+
+/* FLEX */
+
+.flex{
+
+display:flex;
+
+align-items:center;
+
+}
+
+
+/* SPACING */
+
+.mt-1{margin-top:10px;}
+.mt-2{margin-top:20px;}
+.mt-3{margin-top:30px;}
+.mt-4{margin-top:40px;}
+.mt-5{margin-top:50px;}
+
+.mb-1{margin-bottom:10px;}
+.mb-2{margin-bottom:20px;}
+.mb-3{margin-bottom:30px;}
+.mb-4{margin-bottom:40px;}
+.mb-5{margin-bottom:50px;}
+
+
+/* HIDDEN */
+
+.hidden{
+
+display:none;
+
+}
+
+
+/* TRANSITION */
+
+*{
+
+transition:all .3s ease;
+
+}
+
+
+/* SELECTION */
+
+::selection{
+
+background:var(--primary);
+
+color:#ffffff;
+
+}
+
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#f3f4f6;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:var(--primary);
+
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:var(--primary-dark);
+
+}
