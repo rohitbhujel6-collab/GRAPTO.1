@@ -1354,9 +1354,319 @@ function initializeAdmin(){
 
     checkAdminConnection();
 
+}
 
+
+/* =====================================================
+   GRAPTO CONTENT SAVE ENGINE
+===================================================== */
+
+
+/* =========================
+   HERO SAVE
+========================= */
+
+async function saveHeroSection(){
+
+const data={
+
+tag:
+document.querySelector("#heroTag")?.value || "",
+
+heading:
+document.querySelector("#heroHeading")?.value || "",
+
+description:
+document.querySelector("#heroDescription")?.value || "",
+
+primaryButton:
+document.querySelector("#heroPrimaryButton")?.value || "",
+
+primaryLink:
+document.querySelector("#heroPrimaryLink")?.value || "",
+
+secondaryButton:
+document.querySelector("#heroSecondaryButton")?.value || "",
+
+secondaryLink:
+document.querySelector("#heroSecondaryLink")?.value || ""
+
+};
+
+
+await adminSave(
+"website/homepage/hero",
+data
+);
+
+
+showToast(
+"Saved",
+"Hero section updated successfully."
+);
 
 }
+
+
+
+/* =========================
+   ABOUT SAVE
+========================= */
+
+async function saveAboutSection(){
+
+const data={
+
+heading:
+document.querySelector("#aboutHeading")?.value || "",
+
+description:
+document.querySelector("#aboutDescription")?.value || ""
+
+};
+
+
+await adminSave(
+"website/homepage/about",
+data
+);
+
+
+showToast(
+"Saved",
+"About section updated successfully."
+);
+
+}
+
+
+
+/* =========================
+   EMPLOYERS SAVE
+========================= */
+
+async function saveEmployersSection(){
+
+const data={
+
+heading:
+document.querySelector("#employerHeading")?.value || "",
+
+description:
+document.querySelector("#employerDescription")?.value || "",
+
+buttonText:
+document.querySelector("#employerButtonText")?.value || "",
+
+buttonLink:
+document.querySelector("#employerButtonLink")?.value || "",
+
+googleForm:
+document.querySelector("#employerGoogleForm")?.value || ""
+
+};
+
+
+await adminSave(
+"website/employers",
+data
+);
+
+
+showToast(
+"Saved",
+"Employer section updated successfully."
+);
+
+}
+
+
+
+/* =========================
+   CANDIDATES SAVE
+========================= */
+
+async function saveCandidatesSection(){
+
+const data={
+
+heading:
+document.querySelector("#candidateHeading")?.value || "",
+
+description:
+document.querySelector("#candidateDescription")?.value || "",
+
+buttonText:
+document.querySelector("#candidateButtonText")?.value || "",
+
+buttonLink:
+document.querySelector("#candidateButtonLink")?.value || "",
+
+googleForm:
+document.querySelector("#candidateGoogleForm")?.value || ""
+
+};
+
+
+await adminSave(
+"website/candidates",
+data
+);
+
+
+showToast(
+"Saved",
+"Candidate section updated successfully."
+);
+
+}
+
+
+
+/* =========================
+   FOOTER SAVE
+========================= */
+
+async function saveFooterSection(){
+
+const data={
+
+company:
+document.querySelector("#companyName")?.value || "",
+
+phone:
+document.querySelector("#companyPhone")?.value || "",
+
+email:
+document.querySelector("#companyEmail")?.value || "",
+
+address:
+document.querySelector("#companyAddress")?.value || ""
+
+};
+
+
+await adminSave(
+"website/footer",
+data
+);
+
+
+showToast(
+"Saved",
+"Footer updated successfully."
+);
+
+}
+
+
+
+/* =========================
+   SETTINGS SAVE
+========================= */
+
+async function saveWebsiteSettings(){
+
+const data={
+
+title:
+document.querySelector("#websiteTitle")?.value || "",
+
+tagline:
+document.querySelector("#websiteTagline")?.value || "",
+
+adminEmail:
+document.querySelector("#adminEmail")?.value || "",
+
+supportEmail:
+document.querySelector("#supportEmail")?.value || "",
+
+metaDescription:
+document.querySelector("#metaDescription")?.value || ""
+
+};
+
+
+await adminSave(
+"website/settings",
+data
+);
+
+
+showToast(
+"Saved",
+"Website settings updated successfully."
+);
+
+}
+
+
+
+/* =========================
+   BUTTON CONNECTIONS
+========================= */
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+document
+.querySelector("#saveHero")
+?.addEventListener(
+"click",
+saveHeroSection
+);
+
+
+
+document
+.querySelector("#saveAbout")
+?.addEventListener(
+"click",
+saveAboutSection
+);
+
+
+
+document
+.querySelector("#saveEmployers")
+?.addEventListener(
+"click",
+saveEmployersSection
+);
+
+
+
+document
+.querySelector("#saveCandidates")
+?.addEventListener(
+"click",
+saveCandidatesSection
+);
+
+
+
+document
+.querySelector("#saveFooter")
+?.addEventListener(
+"click",
+saveFooterSection
+);
+
+
+
+document
+.querySelector("#saveSettings")
+?.addEventListener(
+"click",
+saveWebsiteSettings
+);
+
+
+
+});
 
 
 
