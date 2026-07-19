@@ -1,10 +1,14 @@
 /* ==========================================================
    GRAPTO
    FIREBASE INITIALIZATION
-   Version : 1.0
+   Version : 2.0
    ========================================================== */
 
-/* Firebase SDK */
+"use strict";
+
+/* ==========================================================
+   FIREBASE CONFIGURATION
+   ========================================================== */
 
 const firebaseConfig = {
 
@@ -24,38 +28,44 @@ const firebaseConfig = {
 
 };
 
-/* Initialize Firebase */
+/* ==========================================================
+   INITIALIZE FIREBASE
+   ========================================================== */
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
 
-/* Services */
+    firebase.initializeApp(firebaseConfig);
+
+}
+
+/* ==========================================================
+   FIREBASE SERVICES
+   ========================================================== */
 
 const db = firebase.database();
 
 const auth = firebase.auth();
 
-const storage = firebase.storage();
-
-/* Global Access */
+/* ==========================================================
+   GLOBAL OBJECTS
+   ========================================================== */
 
 window.db = db;
 
 window.auth = auth;
 
-window.storage = storage;
+/* ==========================================================
+   CONNECTION TEST
+   ========================================================== */
 
-/* Connection Check */
+console.log("========================================");
 
-console.log("===================================");
+console.log("GRAPTO Firebase Initialized");
 
-console.log("GRAPTO Firebase Connected");
+console.log("Realtime Database : Connected");
 
-console.log("Project : grapto-43823");
+console.log("Authentication    : Ready");
 
-console.log("Database Ready");
+console.log("Storage           : Disabled (Spark Plan)");
 
-console.log("Authentication Ready");
-
-console.log("Storage Ready");
-
-console.log("===================================");
+console.log("========================================");
