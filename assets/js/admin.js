@@ -1,19 +1,57 @@
 /* =====================================================
    GRAPTO ADMIN PANEL
-   Version 1.0
+   Version 2.0
+
+   Connected With:
+   - firebase.js Version 3.0
+   - Firebase Realtime Database
+   - Google Form Manager
+===================================================== */
+
+"use strict";
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let hasUnsavedChanges = false;
+
+
+/* =====================================================
+   DOM READY INITIALIZATION
 ===================================================== */
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-initializeSidebar();
+    initializeSidebar();
 
-initializeNavigation();
+    initializeNavigation();
 
-initializeSearch();
+    initializeDashboard();
 
-initializeNotifications();
+    initializeSearch();
+
+    initializeNotifications();
+
+    initializeImageUploads();
+
+    initializeTableSearch();
+
+    initializeTableActions();
+
+    initializeBulkSelection();
+
+    initializeGoogleForms();
+
+    initializeSaveButtons();
+
+    initializeUnsavedChanges();
+
+    initializeAdmin();
 
 });
+
 
 /* =====================================================
    SIDEBAR
@@ -21,19 +59,23 @@ initializeNotifications();
 
 function initializeSidebar(){
 
-const sidebar=document.querySelector(".sidebar");
+    const sidebar=document.querySelector(".sidebar");
 
-const toggle=document.querySelector("#sidebarToggle");
+    const toggle=document.querySelector("#sidebarToggle");
 
-if(!sidebar||!toggle) return;
 
-toggle.addEventListener("click",()=>{
+    if(!sidebar || !toggle) return;
 
-sidebar.classList.toggle("active");
 
-});
+    toggle.addEventListener("click",()=>{
+
+        sidebar.classList.toggle("active");
+
+    });
 
 }
+
+
 
 /* =====================================================
    NAVIGATION
@@ -41,21 +83,164 @@ sidebar.classList.toggle("active");
 
 function initializeNavigation(){
 
-const links=document.querySelectorAll(".sidebar-menu a");
+    const links=document.querySelectorAll(".sidebar-menu a");
 
-links.forEach(link=>{
 
-link.addEventListener("click",()=>{
+    links.forEach(link=>{
 
-links.forEach(item=>item.classList.remove("active"));
 
-link.classList.add("active");
+        link.addEventListener("click",()=>{
 
-});
 
-});
+            links.forEach(item=>{
+
+                item.classList.remove("active");
+
+            });
+
+
+            link.classList.add("active");
+
+
+        });
+
+
+    });
+
 
 }
+
+
+
+/* =====================================================
+   DASHBOARD PAGE SYSTEM
+===================================================== */
+
+function initializeDashboard(){
+
+
+    const menuLinks=document.querySelectorAll("[data-page]");
+
+    const pages=document.querySelectorAll(".admin-page");
+
+
+    if(!menuLinks.length || !pages.length) return;
+
+
+
+    menuLinks.forEach(link=>{
+
+
+        link.addEventListener("click",(event)=>{
+
+
+            event.preventDefault();
+
+
+            const page=link.dataset.page;
+
+
+            switchPage(page);
+
+
+        });
+
+
+    });
+
+
+
+    const firstPage=document.querySelector(".admin-page");
+
+
+    if(firstPage){
+
+
+        pages.forEach(page=>{
+
+            page.style.display="none";
+
+        });
+
+
+        firstPage.style.display="block";
+
+
+    }
+
+
+}
+
+
+
+function switchPage(pageId){
+
+
+    const pages=document.querySelectorAll(".admin-page");
+
+    const links=document.querySelectorAll("[data-page]");
+
+
+
+    pages.forEach(page=>{
+
+
+        page.style.display="none";
+
+
+    });
+
+
+
+    const activePage=document.getElementById(pageId);
+
+
+
+    if(activePage){
+
+        activePage.style.display="block";
+
+    }
+
+
+
+    links.forEach(link=>{
+
+
+        link.classList.remove("active");
+
+
+
+        if(link.dataset.page===pageId){
+
+            link.classList.add("active");
+
+        }
+
+
+    });
+
+
+
+    const title=document.querySelector(".page-title");
+
+
+    const activeLink=document.querySelector(`[data-page="${pageId}"]`);
+
+
+
+    if(title && activeLink){
+
+        title.textContent=
+        activeLink.textContent.trim();
+
+    }
+
+
+
+}
+
+
 
 /* =====================================================
    SEARCH
@@ -63,19 +248,31 @@ link.classList.add("active");
 
 function initializeSearch(){
 
-const search=document.querySelector(".admin-search input");
 
-if(!search) return;
+    const search=document.querySelector(".admin-search input");
 
-search.addEventListener("input",(e)=>{
 
-const value=e.target.value.trim().toLowerCase();
+    if(!search) return;
 
-console.log("Searching:",value);
 
-});
+
+    search.addEventListener("input",(e)=>{
+
+
+        console.log(
+
+            "Admin search:",
+            e.target.value
+
+        );
+
+
+    });
+
 
 }
+
+
 
 /* =====================================================
    NOTIFICATIONS
@@ -83,521 +280,757 @@ console.log("Searching:",value);
 
 function initializeNotifications(){
 
-const notification=document.querySelector("#notificationBtn");
 
-if(!notification) return;
+    const button=document.querySelector("#notificationBtn");
 
-notification.addEventListener("click",()=>{
 
-showToast(
+    if(!button) return;
 
-"Notifications",
 
-"No new notifications available."
 
-);
+    button.addEventListener("click",()=>{
 
-});
 
-}/* =====================================================
-   TOAST NOTIFICATION
+        showToast(
+
+            "Notifications",
+
+            "No new notifications available.",
+
+            "info"
+
+        );
+
+
+    });
+
+
+}
+
+
+
+/* =====================================================
+   TOAST SYSTEM
 ===================================================== */
 
 function showToast(title,message,type="success"){
 
-let toast=document.querySelector(".toast");
 
-if(toast){
+    let toast=document.querySelector(".toast");
 
-toast.remove();
+
+
+    if(toast){
+
+        toast.remove();
+
+    }
+
+
+
+    toast=document.createElement("div");
+
+
+    toast.className="toast";
+
+
+    toast.innerHTML=`
+
+        <h4>${title}</h4>
+
+        <p>${message}</p>
+
+    `;
+
+
+
+    document.body.appendChild(toast);
+
+
+
+    setTimeout(()=>{
+
+
+        toast.style.opacity="0";
+
+
+        setTimeout(()=>{
+
+
+            toast.remove();
+
+
+        },300);
+
+
+
+    },3000);
+
+
 
 }
 
-toast=document.createElement("div");
 
-toast.className="toast";
-
-const colors={
-
-success:"var(--primary)",
-
-error:"#dc2626",
-
-warning:"#d97706",
-
-info:"#2563eb"
-
-};
-
-toast.style.borderLeftColor=colors[type]||colors.success;
-
-toast.innerHTML=`
-
-<h4>${title}</h4>
-
-<p>${message}</p>
-
-`;
-
-document.body.appendChild(toast);
-
-setTimeout(()=>{
-
-toast.style.opacity="0";
-
-toast.style.transform="translateY(20px)";
-
-setTimeout(()=>{
-
-toast.remove();
-
-},300);
-
-},3000);
-
-}
 
 /* =====================================================
-   LOADING OVERLAY
+   LOADING
 ===================================================== */
 
 function showLoading(){
 
-if(document.querySelector(".loading-overlay")) return;
 
-const overlay=document.createElement("div");
+    const loader=document.querySelector(".loading-overlay");
 
-overlay.className="loading-overlay";
 
-overlay.innerHTML=`
+    if(loader){
 
-<div class="loading-spinner"></div>
+        loader.style.display="flex";
 
-`;
+    }
 
-document.body.appendChild(overlay);
 
 }
+
+
 
 function hideLoading(){
 
-const overlay=document.querySelector(".loading-overlay");
 
-if(overlay){
+    const loader=document.querySelector(".loading-overlay");
 
-overlay.remove();
 
-}
+    if(loader){
 
-}
+        loader.style.display="none";
 
-/* =====================================================
-   CONFIRM DIALOG
-===================================================== */
+    }
 
-function confirmAction(message,callback){
-
-const confirmed=window.confirm(message);
-
-if(confirmed && typeof callback==="function"){
-
-callback();
-
-}
-
-}
-
-/* =====================================================
-   GENERATE UNIQUE ID
-===================================================== */
-
-function generateId(prefix="item"){
-
-return `${prefix}_${Date.now()}_${Math.floor(Math.random()*1000)}`;
 
 }/* =====================================================
-   DASHBOARD NAVIGATION
+   FIREBASE DATA HELPERS
 ===================================================== */
 
-function initializeDashboard(){
+async function adminSave(path,data){
 
-const menuLinks=document.querySelectorAll("[data-page]");
 
-const pages=document.querySelectorAll(".admin-page");
+    if(typeof saveData !== "function"){
 
-if(!menuLinks.length||!pages.length) return;
+        console.error(
+            "Firebase saveData function missing"
+        );
 
-menuLinks.forEach(link=>{
+        return false;
 
-link.addEventListener("click",(e)=>{
+    }
 
-e.preventDefault();
 
-const target=link.dataset.page;
 
-switchPage(target);
+    const result = await saveData(path,data);
 
-});
 
-});
 
-}
+    if(result.success){
 
-function switchPage(pageId){
+        return true;
 
-const pages=document.querySelectorAll(".admin-page");
+    }
 
-const menuLinks=document.querySelectorAll("[data-page]");
 
-pages.forEach(page=>{
+    showToast(
 
-page.style.display="none";
+        "Error",
 
-});
+        result.message,
 
-const activePage=document.getElementById(pageId);
+        "error"
 
-if(activePage){
+    );
 
-activePage.style.display="block";
+
+    return false;
+
 
 }
 
-menuLinks.forEach(link=>{
 
-link.classList.remove("active");
 
-if(link.dataset.page===pageId){
+async function adminRead(path){
 
-link.classList.add("active");
 
-}
+    if(typeof readData !== "function"){
 
-});
+        console.error(
+            "Firebase readData function missing"
+        );
 
-const title=document.querySelector(".page-title");
+        return null;
 
-if(title){
+    }
 
-const activeLink=document.querySelector(`[data-page="${pageId}"]`);
 
-if(activeLink){
 
-title.textContent=activeLink.textContent.trim();
+    return await readData(path);
+
 
 }
 
-}
 
-}
 
 /* =====================================================
-   INITIAL PAGE
+   GOOGLE FORM MANAGER
+=====================================================
+
+   Firebase Location:
+
+   website/settings/googleForms
+
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
 
-initializeDashboard();
+const GOOGLE_FORM_PATH =
+"website/settings/googleForms";
 
-const firstPage=document.querySelector(".admin-page");
 
-if(firstPage){
 
-document.querySelectorAll(".admin-page").forEach(page=>{
+function initializeGoogleForms(){
 
-page.style.display="none";
 
-});
+    loadGoogleForms();
 
-firstPage.style.display="block";
+
+    const saveButton=
+    document.querySelector("#saveSettings");
+
+
+
+    if(saveButton){
+
+
+        saveButton.addEventListener(
+        "click",
+        saveGoogleForms
+        );
+
+
+    }
+
 
 }
 
-});
+
+
+async function loadGoogleForms(){
+
+
+    const data =
+    await adminRead(GOOGLE_FORM_PATH);
+
+
+
+    if(!data) return;
+
+
+
+    const candidate =
+    document.querySelector("#candidateGoogleForm");
+
+
+    const employer =
+    document.querySelector("#employerGoogleForm");
+
+
+    const contact =
+    document.querySelector("#contactGoogleForm");
+
+
+
+    if(candidate){
+
+        candidate.value =
+        data.candidate || "";
+
+    }
+
+
+
+    if(employer){
+
+        employer.value =
+        data.employer || "";
+
+    }
+
+
+
+    if(contact){
+
+        contact.value =
+        data.contact || "";
+
+    }
+
+
+
+    window.GOOGLE_FORMS =
+    {
+
+        candidate:data.candidate || "",
+
+        employer:data.employer || "",
+
+        contact:data.contact || ""
+
+    };
+
+
+
+}
+
+
+
+
+async function saveGoogleForms(){
+
+
+    const candidate =
+    document.querySelector("#candidateGoogleForm");
+
+
+    const employer =
+    document.querySelector("#employerGoogleForm");
+
+
+    const contact =
+    document.querySelector("#contactGoogleForm");
+
+
+
+    const data={
+
+
+        candidate:
+        candidate ?
+        candidate.value.trim()
+        :
+        "",
+
+
+
+        employer:
+        employer ?
+        employer.value.trim()
+        :
+        "",
+
+
+
+        contact:
+        contact ?
+        contact.value.trim()
+        :
+        ""
+
+    };
+
+
+
+    showLoading();
+
+
+
+    const saved =
+    await adminSave(
+
+        GOOGLE_FORM_PATH,
+
+        data
+
+    );
+
+
+
+    hideLoading();
+
+
+
+    if(saved){
+
+
+        window.GOOGLE_FORMS=data;
+
+
+
+        showToast(
+
+            "Saved",
+
+            "Google Form links updated successfully.",
+
+            "success"
+
+        );
+
+
+    }
+
+
+}
+
+
+
 
 /* =====================================================
-   PAGE REFRESH
-===================================================== */
-
-function refreshCurrentPage(){
-
-const active=document.querySelector(".sidebar-menu a.active");
-
-if(active){
-
-const pageId=active.dataset.page;
-
-if(pageId){
-
-switchPage(pageId);
-
-}
-
-}
-
-}/* =====================================================
-   IMAGE PREVIEW
+   IMAGE PREVIEW SYSTEM
 ===================================================== */
 
 function initializeImageUploads(){
 
-const uploadInputs=document.querySelectorAll('input[type="file"]');
 
-uploadInputs.forEach(input=>{
+    const inputs =
+    document.querySelectorAll(
+        'input[type="file"]'
+    );
 
-input.addEventListener("change",(e)=>{
 
-const file=e.target.files[0];
 
-if(!file) return;
+    inputs.forEach(input=>{
 
-const previewContainer=input.closest(".form-group")?.querySelector(".image-preview");
 
-if(!previewContainer) return;
+        input.addEventListener(
+        "change",
+        function(event){
 
-const reader=new FileReader();
 
-reader.onload=function(event){
 
-previewContainer.innerHTML=`
+            const file =
+            event.target.files[0];
 
-<img src="${event.target.result}" alt="Preview">
 
-`;
 
-};
+            if(!file) return;
 
-reader.readAsDataURL(file);
 
-});
 
-});
+            const container =
+            input.closest(".form-group")
+            ?.querySelector(".image-preview");
+
+
+
+            if(!container) return;
+
+
+
+            const reader =
+            new FileReader();
+
+
+
+            reader.onload=function(e){
+
+
+                container.innerHTML=`
+
+                    <img 
+                    src="${e.target.result}"
+                    alt="Preview">
+
+                `;
+
+
+            };
+
+
+
+            reader.readAsDataURL(file);
+
+
+
+        });
+
+
+    });
+
+
 
 }
 
-/* =====================================================
-   FORM RESET
-===================================================== */
 
-function resetForm(formSelector){
-
-const form=document.querySelector(formSelector);
-
-if(!form) return;
-
-form.reset();
-
-form.querySelectorAll(".image-preview").forEach(preview=>{
-
-preview.innerHTML="";
-
-});
-
-}
 
 /* =====================================================
-   SAVE BUTTONS
+   SAVE BUTTON SYSTEM
 ===================================================== */
 
 function initializeSaveButtons(){
 
-document.querySelectorAll("[data-save]").forEach(button=>{
 
-button.addEventListener("click",()=>{
+    document.querySelectorAll(
+        ".btn-primary"
+    )
+    .forEach(button=>{
 
-showLoading();
 
-setTimeout(()=>{
+        button.addEventListener(
+        "click",
+        ()=>{
 
-hideLoading();
 
-showToast(
+            hasUnsavedChanges=false;
 
-"Saved Successfully",
 
-"Your changes have been saved locally.",
+        });
 
-"success"
 
-);
+    });
 
-},1000);
-
-});
-
-});
 
 }
 
-/* =====================================================
-   UNSAVED CHANGES DETECTION
-===================================================== */
 
-let hasUnsavedChanges=false;
+
+/* =====================================================
+   UNSAVED CHANGES TRACKER
+===================================================== */
 
 function initializeUnsavedChanges(){
 
-document.querySelectorAll("input, textarea, select").forEach(field=>{
 
-field.addEventListener("input",()=>{
+    document.querySelectorAll(
+        "input,textarea,select"
+    )
+    .forEach(field=>{
 
-hasUnsavedChanges=true;
 
-});
+        field.addEventListener(
+        "input",
+        ()=>{
 
-});
 
-window.addEventListener("beforeunload",(e)=>{
+            hasUnsavedChanges=true;
 
-if(hasUnsavedChanges){
 
-e.preventDefault();
+        });
 
-e.returnValue="";
+
+    });
+
+
+
+    window.addEventListener(
+    "beforeunload",
+    (event)=>{
+
+
+        if(hasUnsavedChanges){
+
+
+            event.preventDefault();
+
+            event.returnValue="";
+
+
+        }
+
+
+    });
+
 
 }
 
-});
 
-}
 
 /* =====================================================
-   INITIALIZE FORM MODULES
-===================================================== */
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-initializeImageUploads();
-
-initializeSaveButtons();
-
-initializeUnsavedChanges();
-
-});/* =====================================================
    TABLE SEARCH
 ===================================================== */
 
 function initializeTableSearch(){
 
-document.querySelectorAll("[data-table-search]").forEach(searchBox=>{
 
-searchBox.addEventListener("input",function(){
+    document.querySelectorAll(
+        "[data-table-search]"
+    )
+    .forEach(search=>{
 
-const keyword=this.value.toLowerCase();
 
-const tableId=this.dataset.tableSearch;
+        search.addEventListener(
+        "input",
+        function(){
 
-const table=document.getElementById(tableId);
 
-if(!table) return;
+            const keyword =
+            this.value.toLowerCase();
 
-const rows=table.querySelectorAll("tbody tr");
 
-rows.forEach(row=>{
 
-const text=row.textContent.toLowerCase();
+            const tableId =
+            this.dataset.tableSearch;
 
-row.style.display=text.includes(keyword)?"":"none";
 
-});
 
-});
+            const table =
+            document.getElementById(tableId);
 
-});
 
-}
 
-/* =====================================================
+            if(!table) return;
+
+
+
+            table.querySelectorAll(
+                "tbody tr"
+            )
+            .forEach(row=>{
+
+
+                row.style.display =
+                row.textContent
+                .toLowerCase()
+                .includes(keyword)
+                ?
+                ""
+                :
+                "none";
+
+
+            });
+
+
+
+        });
+
+
+    });
+
+
+}/* =====================================================
    TABLE ACTIONS
 ===================================================== */
 
 function initializeTableActions(){
 
-/* EDIT */
 
-document.querySelectorAll("[data-edit]").forEach(button=>{
+    document.querySelectorAll(
+        "[data-edit]"
+    )
+    .forEach(button=>{
 
-button.addEventListener("click",()=>{
 
-const item=button.dataset.edit;
+        button.addEventListener(
+        "click",
+        ()=>{
 
-showToast(
 
-"Edit",
+            showToast(
 
-`Opening ${item} for editing...`,
+                "Edit",
 
-"info"
+                "Edit mode opened.",
 
-);
+                "info"
 
-});
+            );
 
-});
 
-/* VIEW */
+        });
 
-document.querySelectorAll("[data-view]").forEach(button=>{
 
-button.addEventListener("click",()=>{
+    });
 
-const item=button.dataset.view;
 
-showToast(
 
-"View",
 
-`Viewing ${item}...`,
+    document.querySelectorAll(
+        "[data-view]"
+    )
+    .forEach(button=>{
 
-"info"
 
-);
+        button.addEventListener(
+        "click",
+        ()=>{
 
-});
 
-});
+            showToast(
 
-/* DELETE */
+                "View",
 
-document.querySelectorAll("[data-delete]").forEach(button=>{
+                "Opening preview.",
 
-button.addEventListener("click",()=>{
+                "info"
 
-const item=button.dataset.delete;
+            );
 
-confirmAction(
 
-`Delete "${item}"?`,
+        });
 
-()=>{
 
-const row=button.closest("tr");
+    });
 
-if(row){
 
-row.remove();
+
+
+
+    document.querySelectorAll(
+        "[data-delete]"
+    )
+    .forEach(button=>{
+
+
+        button.addEventListener(
+        "click",
+        ()=>{
+
+
+            const item =
+            button.dataset.delete
+            ||
+            "item";
+
+
+
+            if(
+            confirm(
+            `Delete ${item}?`
+            )
+            ){
+
+
+                const row =
+                button.closest("tr");
+
+
+
+                if(row){
+
+                    row.remove();
+
+                }
+
+
+
+                showToast(
+
+                    "Deleted",
+
+                    `${item} deleted successfully.`,
+
+                    "success"
+
+                );
+
+
+            }
+
+
+        });
+
+
+    });
+
 
 }
 
-showToast(
 
-"Deleted",
-
-`${item} removed successfully.`,
-
-"success"
-
-);
-
-}
-
-);
-
-});
-
-});
-
-}
 
 /* =====================================================
    BULK SELECT
@@ -605,179 +1038,327 @@ showToast(
 
 function initializeBulkSelection(){
 
-const master=document.querySelector("#selectAll");
 
-if(!master) return;
+    const selectAll =
+    document.querySelector("#selectAll");
 
-master.addEventListener("change",()=>{
 
-document.querySelectorAll(".row-checkbox").forEach(box=>{
 
-box.checked=master.checked;
+    if(!selectAll) return;
 
-});
 
-});
+
+    selectAll.addEventListener(
+    "change",
+    ()=>{
+
+
+        document.querySelectorAll(
+            ".row-checkbox"
+        )
+        .forEach(box=>{
+
+
+            box.checked =
+            selectAll.checked;
+
+
+        });
+
+
+    });
+
 
 }
 
+
+
 /* =====================================================
-   INITIALIZE TABLE MODULES
-===================================================== */
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-initializeTableSearch();
-
-initializeTableActions();
-
-initializeBulkSelection();
-
-});/* =====================================================
    LOCAL DRAFT STORAGE
 ===================================================== */
 
 function saveDraft(key,data){
 
-localStorage.setItem(
 
-`grapto_${key}`,
+    localStorage.setItem(
 
-JSON.stringify(data)
+        "grapto_"+key,
 
-);
+        JSON.stringify(data)
+
+    );
+
 
 }
+
+
 
 function loadDraft(key){
 
-const data=localStorage.getItem(`grapto_${key}`);
 
-if(!data) return null;
+    const data =
+    localStorage.getItem(
+        "grapto_"+key
+    );
 
-try{
 
-return JSON.parse(data);
+
+    if(!data) return null;
+
+
+
+    try{
+
+
+        return JSON.parse(data);
+
+
+    }
+    catch(error){
+
+
+        return null;
+
+
+    }
+
 
 }
 
-catch(e){
 
-return null;
-
-}
-
-}
 
 function clearDraft(key){
 
-localStorage.removeItem(`grapto_${key}`);
+
+    localStorage.removeItem(
+        "grapto_"+key
+    );
+
 
 }
 
+
+
 /* =====================================================
-   AUTO SAVE (FOUNDATION)
+   AUTO SAVE FOUNDATION
 ===================================================== */
 
 function autoSave(){
 
-const forms=document.querySelectorAll("form[data-autosave]");
 
-forms.forEach(form=>{
+    document.querySelectorAll(
+        "form[data-autosave]"
+    )
+    .forEach(form=>{
 
-const formData={};
 
-new FormData(form).forEach((value,key)=>{
+        const data={};
 
-formData[key]=value;
 
-});
 
-saveDraft(form.id||generateId("form"),formData);
+        new FormData(form)
+        .forEach(
+        (value,key)=>{
 
-});
+
+            data[key]=value;
+
+
+        });
+
+
+
+        saveDraft(
+
+            form.id
+            ||
+            generateId("form"),
+
+            data
+
+        );
+
+
+    });
+
 
 }
+
+
+
+/* =====================================================
+   UNIQUE ID GENERATOR
+===================================================== */
+
+function generateId(prefix="item"){
+
+
+    return (
+
+        prefix +
+
+        "_" +
+
+        Date.now()
+
+    );
+
+
+}
+
+
 
 /* =====================================================
    KEYBOARD SHORTCUTS
 ===================================================== */
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener(
+"keydown",
+(event)=>{
 
-/* Ctrl + S */
 
-if((e.ctrlKey||e.metaKey)&&e.key==="s"){
+    if(
+    (event.ctrlKey || event.metaKey)
+    &&
+    event.key==="s"
+    ){
 
-e.preventDefault();
 
-showLoading();
+        event.preventDefault();
 
-setTimeout(()=>{
 
-hideLoading();
 
-showToast(
+        hasUnsavedChanges=false;
 
-"Saved",
 
-"All changes saved successfully.",
 
-"success"
+        showToast(
 
-);
+            "Saved",
 
-hasUnsavedChanges=false;
+            "Changes saved.",
 
-},700);
+            "success"
 
-}
+        );
 
-/* ESC */
 
-if(e.key==="Escape"){
+    }
 
-const modal=document.querySelector(".modal-overlay.active");
 
-if(modal){
 
-modal.classList.remove("active");
 
-}
+    if(event.key==="Escape"){
 
-}
+
+        document
+        .querySelectorAll(
+            ".modal-overlay.active"
+        )
+        .forEach(modal=>{
+
+
+            modal.classList.remove(
+                "active"
+            );
+
+
+        });
+
+
+    }
+
 
 });
 
+
+
+
 /* =====================================================
-   ADMIN INITIALIZER
+   FIREBASE CONNECTION CHECK
+===================================================== */
+
+async function checkAdminConnection(){
+
+
+    if(
+    typeof testFirebaseConnection
+    !==
+    "function"
+    ){
+
+        console.warn(
+        "Firebase connection tester unavailable"
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    const connected =
+    await testFirebaseConnection();
+
+
+
+    if(connected){
+
+
+        console.log(
+        "GRAPTO Admin Firebase Connected"
+        );
+
+
+    }
+
+
+}
+
+
+
+/* =====================================================
+   ADMIN STARTUP
 ===================================================== */
 
 function initializeAdmin(){
 
-console.log("GRAPTO Admin Panel Initialized");
 
-showToast(
+    console.log(
+    "================================"
+    );
 
-"Welcome",
 
-"GRAPTO Admin Panel Ready.",
+    console.log(
+    " GRAPTO ADMIN PANEL VERSION 2.0"
+    );
 
-"success"
 
-);
+    console.log(
+    " Google Form Manager Enabled"
+    );
+
+
+    console.log(
+    " Firebase Integration Ready"
+    );
+
+
+    console.log(
+    "================================"
+    );
+
+
+
+    checkAdminConnection();
+
+
 
 }
 
-/* =====================================================
-   START APPLICATION
-===================================================== */
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-initializeAdmin();
-
-});
 
 /* =====================================================
    END OF FILE
