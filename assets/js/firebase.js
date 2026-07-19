@@ -47,12 +47,20 @@ const db = firebase.database();
 const auth = firebase.auth();
 
 /* ==========================================================
-   GLOBAL OBJECTS
+   GLOBAL ACCESS
    ========================================================== */
 
 window.db = db;
 
 window.auth = auth;
+
+/* ==========================================================
+   DATABASE ROOT
+   ========================================================== */
+
+const WEBSITE_ROOT = "website";
+
+window.WEBSITE_ROOT = WEBSITE_ROOT;
 
 /* ==========================================================
    CONNECTION TEST
@@ -62,10 +70,12 @@ console.log("========================================");
 
 console.log("GRAPTO Firebase Initialized");
 
+console.log("Project : grapto-43823");
+
 console.log("Realtime Database : Connected");
 
-console.log("Authentication    : Ready");
+console.log("Authentication : Ready");
 
-console.log("Storage           : Disabled (Spark Plan)");
+console.log("Website Root :", WEBSITE_ROOT);
 
 console.log("========================================");
