@@ -44,9 +44,11 @@ if (!firebase.apps.length) {
 
 const db = firebase.database();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
 window.db = db;
 window.auth = auth;
+window.storage = storage;
 
 /* ==========================================================
    DATABASE ROOTS
@@ -280,6 +282,25 @@ window.deleteData = deleteData;
 window.readData = readData;
 window.pushData = pushData;
 
+async function uploadImage(file, path) {
+    if (!file) return { success: false, message: "Please choose an image first." };
+    if (!file.type || !file.type.startsWith("image/")) {
+        return { success: false, message: "Only image files can be uploaded." };
+    }
+    try {
+        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+        const storagePath = `${path}/${Date.now()}-${safeName}`;
+        const snapshot = await storage.ref(storagePath).put(file, { contentType: file.type });
+        const url = await snapshot.ref.getDownloadURL();
+        return { success: true, url, path: storagePath };
+    } catch (error) {
+        console.error("Image upload failed:", error);
+        return { success: false, message: error.message || "Image upload failed." };
+    }
+}
+
+window.uploadImage = uploadImage;
+
 /* ==========================================================
    GOOGLE FORM SUBMIT HELPERS
 ========================================================== */
@@ -329,6 +350,23 @@ function openContactForm() {
 window.openCandidateForm = openCandidateForm;
 window.openEmployerForm = openEmployerForm;
 window.openContactForm = openContactForm;
+
+function applyGoogleForms(data) {
+    Object.assign(GOOGLE_FORMS, {
+        candidate: data?.candidate || "",
+        employer: data?.employer || "",
+        contact: data?.contact || ""
+    });
+}
+
+function watchGoogleForms() {
+    db.ref("website/settings/googleForms").on("value", snapshot => {
+        applyGoogleForms(snapshot.val());
+        window.dispatchEvent(new CustomEvent("grapto:googleFormsUpdated", { detail: GOOGLE_FORMS }));
+    }, error => console.error("Could not load Google Form links:", error));
+}
+
+window.watchGoogleForms = watchGoogleForms;
 
 /* ==========================================================
    SIMPLE ANALYTICS
@@ -445,6 +483,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await testFirebaseConnection();
 
     await initializeWebsite();
+    watchGoogleForms();
 
     console.log("Backend initialization complete.");
 
