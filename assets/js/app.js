@@ -7,28 +7,36 @@
 "use strict";
 
 /* ==========================================================
-   APPLICATION
+   MAIN APPLICATION
    ========================================================== */
 
 const GRAPTO = {
 
+    /* ==========================================
+       START APPLICATION
+    ========================================== */
+
     init() {
 
-        console.log("==================================");
+        console.log("========================================");
         console.log("GRAPTO Website Started");
-        console.log("==================================");
+        console.log("========================================");
 
-        this.firebase();
+        this.checkFirebase();
 
-        this.events();
+        this.loadWebsite();
+
+        this.bindEvents();
 
     },
 
-    /* ====================================================== */
+    /* ==========================================
+       FIREBASE CHECK
+    ========================================== */
 
-    firebase() {
+    checkFirebase() {
 
-        if (typeof window.db === "undefined") {
+        if (!window.db) {
 
             console.error("Firebase Database Not Connected");
 
@@ -40,21 +48,56 @@ const GRAPTO = {
 
     },
 
-    /* ====================================================== */
+    /* ==========================================
+       LOAD WEBSITE
+    ========================================== */
 
-    events() {
+    loadWebsite() {
 
-        console.log("Website Events Loaded");
+        console.log("Loading Website Data...");
+
+        /*
+        Future Versions
+
+        Hero
+
+        About
+
+        Services
+
+        Industries
+
+        Employers
+
+        Candidates
+
+        Partners
+
+        Contact
+
+        Social
+
+        */
+
+    },
+
+    /* ==========================================
+       EVENTS
+    ========================================== */
+
+    bindEvents() {
+
+        console.log("Website Events Ready");
 
     }
 
 };
 
 /* ==========================================================
-   START APPLICATION
+   START
    ========================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
     GRAPTO.init();
 
