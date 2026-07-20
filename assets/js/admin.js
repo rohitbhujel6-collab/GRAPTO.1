@@ -372,12 +372,17 @@
         );
         
         this.showStoredPreview(
-            "mediaPartnerPreview",
-            media?.partnerLogoUrl
-        );
-            }
-        
-            fill(data, map) { Object.entries(map).forEach(([id, key]) => this.setValue(id, data?.[key])); },
+    "mediaPartnerPreview",
+    media?.partnerLogoUrl
+);
+
+},
+
+fill(data, map) {
+    Object.entries(map).forEach(([id, key]) => {
+        this.setValue(id, data?.[key]);
+    });
+},
             showStoredPreview(id, url) { if (url && this.q(id)) this.q(id).innerHTML = `<img src="${url}" alt="Saved image">`; },
             removeDuplicateMediaSection() { document.querySelectorAll("section#media").forEach((section, index) => { if (index > 0) section.remove(); }); }
         };
