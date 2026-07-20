@@ -2,17 +2,22 @@
 "use strict";
 
 const Admin = {
-    paths: {
-        hero: "website/homepage",
-        about: "website/about",
-        employers: "website/employers",
-        candidates: "website/candidates",
-        contact: "website/contact",
-        settings: "website/settings",
-        media: "website/media",
-        partners: "website/partners"
-    },
+paths: {
+    hero: "website/homepage",
+    about: "website/about",
 
+    services: "website/services",
+    industries: "website/industries",
+
+    employers: "website/employers",
+    candidates: "website/candidates",
+
+    contact: "website/contact",
+    settings: "website/settings",
+    media: "website/media",
+    partners: "website/partners"
+},
+    
     init() {
         if (!window.db || !window.storage) {
             this.toast("Error", "Firebase did not load. Check the SDK and firebase.js script tags.", true);
@@ -86,16 +91,26 @@ const Admin = {
     },
 
     bindSaves() {
-        this.q("saveHero")?.addEventListener("click", () => this.saveHero());
-        this.q("saveAbout")?.addEventListener("click", () => this.saveAbout());
-        this.q("saveEmployers")?.addEventListener("click", () => this.saveEmployers());
-        this.q("saveCandidates")?.addEventListener("click", () => this.saveCandidates());
-        this.q("saveFooter")?.addEventListener("click", () => this.saveFooter());
-        this.q("saveSettings")?.addEventListener("click", () => this.saveSettings());
-        this.q("saveMedia")?.addEventListener("click", () => this.saveMedia());
-        this.q("savePartner")?.addEventListener("click", () => this.savePartner());
-    },
+    this.q("saveHero")?.addEventListener("click", () => this.saveHero());
 
+    this.q("saveAbout")?.addEventListener("click", () => this.saveAbout());
+
+    this.q("saveServices")?.addEventListener("click", () => this.saveServices());
+
+    this.q("saveIndustries")?.addEventListener("click", () => this.saveIndustries());
+
+    this.q("saveEmployers")?.addEventListener("click", () => this.saveEmployers());
+
+    this.q("saveCandidates")?.addEventListener("click", () => this.saveCandidates());
+
+    this.q("saveFooter")?.addEventListener("click", () => this.saveFooter());
+
+    this.q("saveSettings")?.addEventListener("click", () => this.saveSettings());
+
+    this.q("saveMedia")?.addEventListener("click", () => this.saveMedia());
+
+    this.q("savePartner")?.addEventListener("click", () => this.savePartner());
+},
     async saveHero() {
         try {
             const old = await readData(this.paths.hero) || {};
@@ -112,6 +127,28 @@ const Admin = {
         } catch (error) { this.toast("Upload failed", error.message, true); }
     },
 
+    async saveServices() {
+    await this.save(
+        this.paths.services,
+        {
+            heading: this.value("serviceHeading"),
+            description: this.value("serviceDescription")
+        },
+        "Services section updated."
+    );
+},
+
+async saveIndustries() {
+    await this.save(
+        this.paths.industries,
+        {
+            heading: this.value("industryHeading"),
+            description: this.value("industryDescription")
+        },
+        "Industries section updated."
+    );
+},
+    
     async saveEmployers() {
         try {
             const old = await readData(this.paths.employers) || {};
@@ -162,16 +199,92 @@ const Admin = {
     },
 
     async loadAll() {
-        const [hero, about, employers, candidates, contact, settings, media, forms] = await Promise.all([readData(this.paths.hero), readData(this.paths.about), readData(this.paths.employers), readData(this.paths.candidates), readData(this.paths.contact), readData(this.paths.settings), readData(this.paths.media), readData("website/settings/googleForms")]);
-        this.fill(hero, { heroTag: "tag", heroHeading: "heading", heroDescription: "description", heroPrimaryButton: "primaryButtonText", heroPrimaryLink: "primaryButtonLink", heroSecondaryButton: "secondaryButtonText", heroSecondaryLink: "secondaryButtonLink" });
-        this.fill(about, { aboutHeading: "heading", aboutDescription: "description" });
-        this.fill(employers, { employerHeading: "heading", employerDescription: "description", employerButtonText: "buttonText", employerButtonLink: "buttonLink" });
-        this.fill(candidates, { candidateHeading: "heading", candidateDescription: "description", candidateButtonText: "buttonText", candidateButtonLink: "buttonLink" });
-        this.fill(contact, { companyName: "companyName", companyPhone: "phone", companyEmail: "email", companyAddress: "address", facebookUrl: "facebookUrl", instagramUrl: "instagramUrl", linkedinUrl: "linkedinUrl", youtubeUrl: "youtubeUrl", whatsappNumber: "whatsappNumber", googleMapsLink: "googleMapsLink" });
-        this.fill(settings, { websiteTitle: "websiteName", websiteTagline: "tagline", adminEmail: "adminEmail", supportEmail: "supportEmail", metaDescription: "metaDescription", maintenanceMode: "maintenanceMode", defaultLanguage: "defaultLanguage" });
-        this.fill(forms, { employerGoogleForm: "employer", candidateGoogleForm: "candidate" });
-        this.showStoredPreview("heroPreview", hero?.imageUrl); this.showStoredPreview("aboutPreview", about?.imageUrl); this.showStoredPreview("employerBannerPreview", employers?.imageUrl); this.showStoredPreview("candidateBannerPreview", candidates?.imageUrl); this.showStoredPreview("websiteLogoPreview", media?.logoUrl);
-    },
+        const [hero, about, services, industries, employers, candidates, contact, settings, media, forms] = await Promise.all([
+        readData(this.paths.hero),
+        readData(this.paths.about),
+        readData(this.paths.services),
+        readData(this.paths.industries),
+        readData(this.paths.employers),
+        readData(this.paths.candidates),
+        readData(this.paths.contact),
+        readData(this.paths.settings),
+        readData(this.paths.media),
+        readData("website/settings/googleForms")
+    ]);
+
+    this.fill(hero, {
+        heroTag: "tag",
+        heroHeading: "heading",
+        heroDescription: "description",
+        heroPrimaryButton: "primaryButtonText",
+        heroPrimaryLink: "primaryButtonLink",
+        heroSecondaryButton: "secondaryButtonText",
+        heroSecondaryLink: "secondaryButtonLink"
+    });
+
+    this.fill(about, {
+        aboutHeading: "heading",
+        aboutDescription: "description"
+    });
+
+    this.fill(services, {
+        serviceHeading: "heading",
+        serviceDescription: "description"
+    });
+
+    this.fill(industries, {
+        industryHeading: "heading",
+        industryDescription: "description"
+    });
+
+    this.fill(employers, {
+        employerHeading: "heading",
+        employerDescription: "description",
+        employerButtonText: "buttonText",
+        employerButtonLink: "buttonLink"
+    });
+
+    this.fill(candidates, {
+        candidateHeading: "heading",
+        candidateDescription: "description",
+        candidateButtonText: "buttonText",
+        candidateButtonLink: "buttonLink"
+    });
+
+    this.fill(contact, {
+        companyName: "companyName",
+        companyPhone: "phone",
+        companyEmail: "email",
+        companyAddress: "address",
+        facebookUrl: "facebookUrl",
+        instagramUrl: "instagramUrl",
+        linkedinUrl: "linkedinUrl",
+        youtubeUrl: "youtubeUrl",
+        whatsappNumber: "whatsappNumber",
+        googleMapsLink: "googleMapsLink"
+    });
+
+    this.fill(settings, {
+        websiteTitle: "websiteName",
+        websiteTagline: "tagline",
+        adminEmail: "adminEmail",
+        supportEmail: "supportEmail",
+        metaDescription: "metaDescription",
+        maintenanceMode: "maintenanceMode",
+        defaultLanguage: "defaultLanguage"
+    });
+
+    this.fill(forms, {
+        employerGoogleForm: "employer",
+        candidateGoogleForm: "candidate"
+    });
+
+    this.showStoredPreview("heroPreview", hero?.imageUrl);
+    this.showStoredPreview("aboutPreview", about?.imageUrl);
+    this.showStoredPreview("employerBannerPreview", employers?.imageUrl);
+    this.showStoredPreview("candidateBannerPreview", candidates?.imageUrl);
+    this.showStoredPreview("websiteLogoPreview", media?.logoUrl);
+}
 
     fill(data, map) { Object.entries(map).forEach(([id, key]) => this.setValue(id, data?.[key])); },
     showStoredPreview(id, url) { if (url && this.q(id)) this.q(id).innerHTML = `<img src="${url}" alt="Saved image">`; },
