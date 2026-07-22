@@ -265,20 +265,44 @@ const GRAPTO = {
 
     applyForms(forms) {
 
-        this.link(
-            "employerFormBtn",
-            forms.employer,
-            "#contact"
-        );
+    const employerContainer =
+        document.getElementById("employerFormContainer");
 
-        this.link(
-            "candidateFormBtn",
-            forms.candidate,
-            "#contact"
-        );
+    const candidateContainer =
+        document.getElementById("candidateFormContainer");
 
-    },
 
+    if (employerContainer && forms.employer) {
+
+        employerContainer.innerHTML = `
+            <a 
+            href="${forms.employer}" 
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer">
+            Apply Now
+            </a>
+        `;
+
+    }
+
+
+    if (candidateContainer && forms.candidate) {
+
+        candidateContainer.innerHTML = `
+            <a 
+            href="${forms.candidate}" 
+            class="btn btn-primary"
+            target="_blank"
+            rel="noopener noreferrer">
+            Apply Now
+            </a>
+        `;
+
+    }
+
+},
+   
     bindFormButtons() {
 
         window.addEventListener(
