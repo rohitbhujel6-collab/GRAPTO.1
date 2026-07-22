@@ -4,121 +4,168 @@
 const Admin = {
 
     paths: {
+
         hero: "website/homepage",
+
         about: "website/about",
 
         services: "website/services",
+
         industries: "website/industries",
 
-        employers: "website/employers",
+        applications: "website/applications",
+
+        footer: "website/footer",
 
         settings: "website/settings",
+
         media: "website/media",
+
         partners: "website/partners"
+
     },
 
     init() {
 
         if (!window.db || !window.auth || !window.uploadImage) {
 
-    this.toast(
-        "Error",
-        "Backend failed to load.",
-        true
-    );
+            this.toast(
+                "Error",
+                "Firebase failed to initialize.",
+                true
+            );
 
-    return;
-
-}
+            return;
+        }
 
         this.removeDuplicateMediaSection();
 
         this.bindNavigation();
+
         this.bindUploadBoxes();
-        this.bindSaves();
+
+        this.bindButtons();
 
         this.loadAll();
+
     },
 
     q(id) {
+
         return document.getElementById(id);
+
     },
 
     value(id) {
+
         return this.q(id)?.value.trim() || "";
+
     },
 
     setValue(id, value) {
+
         const el = this.q(id);
-        if (el) el.value = value || "";
+
+        if (el) {
+
+            el.value = value || "";
+
+        }
+
     },
 
-    toast(title, message, isError = false) {
+    toast(title, message, error = false) {
 
-        const box = this.q(isError ? "errorToast" : "toast");
+        const toast = this.q(error ? "errorToast" : "toast");
 
-        this.q(
-            isError ? "errorToastTitle" : "toastTitle"
-        ).textContent = title;
+        this.q(error ? "errorToastTitle" : "toastTitle").textContent = title;
 
-        this.q(
-            isError ? "errorToastMessage" : "toastMessage"
-        ).textContent = message;
+        this.q(error ? "errorToastMessage" : "toastMessage").textContent = message;
 
-        box?.classList.add("show");
+        toast.classList.add("show");
 
         setTimeout(() => {
-            box?.classList.remove("show");
-        }, 4000);
+
+            toast.classList.remove("show");
+
+        }, 3500);
+
     },
 
-    async save(path, data, successMessage) {
+    async save(path, data, message) {
 
         const result = await saveData(path, {
+
             ...data,
+
             updatedAt: new Date().toISOString()
+
         });
 
         if (result.success) {
-            this.toast("Saved", successMessage);
+
+            this.toast("Success", message);
+
         } else {
+
             this.toast(
-                "Save Failed",
-                result.message || "Please try again.",
+
+                "Error",
+
+                result.message ||
+
+                "Unable to save data.",
+
                 true
+
             );
+
         }
 
         return result.success;
+
     },
 
-    async upload(inputId, folder, existingUrl = "") {
+    async upload(inputId, folder, oldUrl = "") {
 
         const file = this.q(inputId)?.files?.[0];
 
-        if (!file) return existingUrl;
+        if (!file) {
+
+            return oldUrl;
+
+        }
 
         const result = await uploadImage(
+
             file,
+
             `grapto/${folder}`
+
         );
 
         if (!result.success) {
+
             throw new Error(result.message);
+
         }
 
         return result.url;
+
     },
 
     preview(input, previewId) {
 
         const file = input.files?.[0];
+
         const preview = this.q(previewId);
 
         if (!file || !preview) return;
 
         preview.innerHTML =
-            `<img src="${URL.createObjectURL(file)}" alt="Preview">`;
+
+            `<img src="${URL.createObjectURL(file)}">`;
+
     },    bindNavigation() {
 
         document.querySelectorAll("[data-page]").forEach(link => {
@@ -138,21 +185,24 @@ const Admin = {
 
                 document.querySelectorAll("[data-page]").forEach(item => {
 
-                    item.classList.toggle("active", item === link);
+                    item.classList.remove("active");
 
                 });
 
-                this.q("dashboard")?.style.setProperty(
-                    "display",
-                    page === "dashboard" ? "block" : "none"
-                );
+                link.classList.add("active");
 
                 const title =
                     link.querySelector("span")?.textContent ||
                     "Dashboard";
 
-                document.querySelector(".page-title").textContent =
-                    title;
+                const pageTitle =
+                    document.querySelector(".page-title");
+
+                if (pageTitle) {
+
+                    pageTitle.textContent = title;
+
+                }
 
             });
 
@@ -160,15 +210,15 @@ const Admin = {
 
     },
 
+
+
     bindUploadBoxes() {
 
-        const map = {
+        const uploads = {
 
             heroImage: "heroPreview",
 
             aboutImage: "aboutPreview",
-
-            employerBanner: "employerBannerPreview",
 
             websiteLogo: "websiteLogoPreview",
 
@@ -178,23 +228,31 @@ const Admin = {
 
             mediaEmployerBanner: "mediaEmployerPreview",
 
+            mediaCandidateBanner: "mediaCandidatePreview",
+
             mediaPartnerLogo: "mediaPartnerPreview",
 
-            mediaCoverImage: "mediaCoverPreview",
-
-            partnerLogo: "partnerLogoPreview"
+            galleryImages: "galleryPreview"
 
         };
 
-        Object.entries(map).forEach(([inputId, previewId]) => {
+        Object.entries(uploads).forEach(([inputId, previewId]) => {
 
             const input = this.q(inputId);
 
-            input?.closest(".form-group")
-                ?.querySelector(".upload-box")
-                ?.addEventListener("click", () => input.click());
+            if (!input) return;
 
-            input?.addEventListener("change", () => {
+            const box =
+                input.closest(".form-group")
+                ?.querySelector(".upload-box");
+
+            box?.addEventListener("click", () => {
+
+                input.click();
+
+            });
+
+            input.addEventListener("change", () => {
 
                 this.preview(input, previewId);
 
@@ -202,168 +260,80 @@ const Admin = {
 
         });
 
-    },    bindSaves() {
-
-        this.q("saveHero")?.addEventListener("click", () => this.saveHero());
-
-        this.q("saveAbout")?.addEventListener("click", () => this.saveAbout());
-
-        this.q("saveServices")?.addEventListener("click", () => this.saveServices());
-
-        this.q("saveIndustries")?.addEventListener("click", () => this.saveIndustries());
-
-        this.q("saveEmployers")?.addEventListener("click", () => this.saveEmployers());
-
-        this.q("saveSettings")?.addEventListener("click", () => this.saveSettings());
-
-        this.q("saveMedia")?.addEventListener("click", () => this.saveMedia());
-
-        this.q("savePartner")?.addEventListener("click", () => this.savePartner());
-
     },
 
-    async saveHero() {
+
+
+    bindButtons() {
+
+        this.q("saveHero")
+            ?.addEventListener("click",
+                () => this.saveHero());
+
+        this.q("saveAbout")
+            ?.addEventListener("click",
+                () => this.saveAbout());
+
+        this.q("saveServices")
+            ?.addEventListener("click",
+                () => this.saveServices());
+
+        this.q("saveIndustries")
+            ?.addEventListener("click",
+                () => this.saveIndustries());
+
+        this.q("saveEmployers")
+            ?.addEventListener("click",
+                () => this.saveApplications());
+
+        this.q("saveFooter")
+            ?.addEventListener("click",
+                () => this.saveFooter());
+
+        this.q("saveSettings")
+            ?.addEventListener("click",
+                () => this.saveSettings());
+
+        this.q("saveMedia")
+            ?.addEventListener("click",
+                () => this.saveMedia());
+
+    },    async saveHero() {
 
         try {
 
-            const old = await readData(this.paths.hero) || {};
+            const old =
+                await readData(this.paths.hero) || {};
 
-            const imageUrl = await this.upload(
-                "heroImage",
-                "hero",
-                old.imageUrl
-            );
-
-            await this.save(
-                this.paths.hero,
-                {
-                    tag: this.value("heroTag"),
-                    heading: this.value("heroHeading"),
-                    description: this.value("heroDescription"),
-                    primaryButtonText: this.value("heroPrimaryButton"),
-                    primaryButtonLink: this.value("heroPrimaryLink"),
-                    secondaryButtonText: this.value("heroSecondaryButton"),
-                    secondaryButtonLink: this.value("heroSecondaryLink"),
-                    imageUrl
-                },
-                "Hero updated."
-            );
-
-        } catch (error) {
-
-            this.toast("Upload Failed", error.message, true);
-
-        }
-
-    },
-
-    async saveAbout() {
-
-        try {
-
-            const old = await readData(this.paths.about) || {};
-
-            const imageUrl = await this.upload(
-                "aboutImage",
-                "about",
-                old.imageUrl
-            );
-
-            await this.save(
-                this.paths.about,
-                {
-                    heading: this.value("aboutHeading"),
-                    description: this.value("aboutDescription"),
-                    imageUrl
-                },
-                "About updated."
-            );
-
-        } catch (error) {
-
-            this.toast("Upload Failed", error.message, true);
-
-        }
-
-    },
-
-    async saveServices() {
-
-        await this.save(
-
-            this.paths.services,
-
-            {
-                heading: this.value("serviceHeading"),
-                description: this.value("serviceDescription")
-            },
-
-            "Services updated."
-
-        );
-
-    },
-
-    async saveIndustries() {
-
-        await this.save(
-
-            this.paths.industries,
-
-            {
-                heading: this.value("industryHeading"),
-                description: this.value("industryDescription")
-            },
-
-            "Industries updated."
-
-        );
-
-    },    async saveEmployers() {
-
-        try {
-
-            const old = await readData(this.paths.employers) || {};
-
-            const imageUrl = await this.upload(
-                "employerBanner",
-                "employers",
-                old.imageUrl
-            );
-
-            const saved = await this.save(
-
-                this.paths.employers,
-
-                {
-                    heading: this.value("employerHeading"),
-                    description: this.value("employerDescription"),
-                    buttonText: this.value("employerButtonText"),
-                    buttonLink: this.value("employerButtonLink"),
-                    imageUrl
-                },
-
-                "Clients section updated."
-
-            );
-
-            if (saved) {
-
-                await this.save(
-
-                    "website/settings/googleForms",
-
-                    {
-                        employer: this.value("employerGoogleForm") || ""
-                    },
-
-                    "Google Form updated."
-
+            const imageUrl =
+                await this.upload(
+                    "heroImage",
+                    "hero",
+                    old.imageUrl
                 );
 
-            }
+            await this.save(
 
-        } catch (error) {
+                this.paths.hero,
+
+                {
+                    tag: this.value("heroTag"),
+
+                    heading: this.value("heroHeading"),
+
+                    description: this.value("heroDescription"),
+
+                    imageUrl
+
+                },
+
+                "Hero section updated successfully."
+
+            );
+
+        }
+
+        catch (error) {
 
             this.toast(
                 "Upload Failed",
@@ -375,15 +345,209 @@ const Admin = {
 
     },
 
-    async saveSettings() {
+
+
+    async saveAbout() {
+
+        try {
+
+            const old =
+                await readData(this.paths.about) || {};
+
+            const imageUrl =
+                await this.upload(
+                    "aboutImage",
+                    "about",
+                    old.imageUrl
+                );
+
+            await this.save(
+
+                this.paths.about,
+
+                {
+
+                    heading: this.value("aboutHeading"),
+
+                    description: this.value("aboutDescription"),
+
+                    imageUrl
+
+                },
+
+                "About section updated successfully."
+
+            );
+
+        }
+
+        catch (error) {
+
+            this.toast(
+                "Upload Failed",
+                error.message,
+                true
+            );
+
+        }
+
+    },
+
+
+
+    async saveServices() {
+
+        await this.save(
+
+            this.paths.services,
+
+            {
+
+                heading: this.value("serviceHeading"),
+
+                description: this.value("serviceDescription")
+
+            },
+
+            "Services updated successfully."
+
+        );
+
+    },
+
+
+
+    async saveIndustries() {
+
+        await this.save(
+
+            this.paths.industries,
+
+            {
+
+                heading: this.value("industryHeading"),
+
+                description: this.value("industryDescription")
+
+            },
+
+            "Industries updated successfully."
+
+        );
+
+    },    async saveApplications() {
+
+        try {
+
+            const data = {
+
+                heading: this.value("applicationHeading"),
+
+                description: this.value("applicationDescription"),
+
+
+
+                employer: {
+
+                    title: this.value("employerTitle"),
+
+                    description: this.value("employerDescription"),
+
+                    buttonText: this.value("employerButtonText"),
+
+                    googleForm: this.value("employerGoogleForm")
+
+                },
+
+
+
+                candidate: {
+
+                    title: this.value("candidateTitle"),
+
+                    description: this.value("candidateDescription"),
+
+                    buttonText: this.value("candidateButtonText"),
+
+                    googleForm: this.value("candidateGoogleForm")
+
+                }
+
+            };
+
+
+
+            await this.save(
+
+                this.paths.applications,
+
+                data,
+
+                "Applications section updated successfully."
+
+            );
+
+        }
+
+        catch (error) {
+
+            this.toast(
+
+                "Save Failed",
+
+                error.message,
+
+                true
+
+            );
+
+        }
+
+    },
+
+
+
+    async saveFooter() {
+
+        await this.save(
+
+            this.paths.footer,
+
+            {
+
+                companyName: this.value("companyName"),
+
+                phone: this.value("companyPhone"),
+
+                email: this.value("companyEmail"),
+
+                address: this.value("companyAddress"),
+
+                facebook: this.value("facebookUrl"),
+
+                instagram: this.value("instagramUrl"),
+
+                linkedin: this.value("linkedinUrl"),
+
+                youtube: this.value("youtubeUrl"),
+
+                whatsapp: this.value("whatsappNumber"),
+
+                googleMaps: this.value("googleMapsLink")
+
+            },
+
+            "Footer updated successfully."
+
+        );
+
+    },    async saveSettings() {
 
         await this.save(
 
             this.paths.settings,
 
             {
-
-                ...(await readData(this.paths.settings) || {}),
 
                 websiteName: this.value("websiteTitle"),
 
@@ -401,11 +565,13 @@ const Admin = {
 
             },
 
-            "Settings updated."
+            "Website settings updated successfully."
 
         );
 
     },
+
+
 
     async saveMedia() {
 
@@ -440,16 +606,16 @@ const Admin = {
                     old.employerBannerUrl
                 ),
 
+                candidateBannerUrl: await this.upload(
+                    "mediaCandidateBanner",
+                    "media",
+                    old.candidateBannerUrl
+                ),
+
                 partnerLogoUrl: await this.upload(
                     "mediaPartnerLogo",
                     "media",
                     old.partnerLogoUrl
-                ),
-
-                coverImageUrl: await this.upload(
-                    "mediaCoverImage",
-                    "media",
-                    old.coverImageUrl
                 )
 
             };
@@ -460,7 +626,7 @@ const Admin = {
 
                 media,
 
-                "Media Library updated."
+                "Media Library updated successfully."
 
             );
 
@@ -469,66 +635,13 @@ const Admin = {
         catch (error) {
 
             this.toast(
+
                 "Upload Failed",
+
                 error.message,
+
                 true
-            );
 
-        }
-
-    },
-
-    async savePartner() {
-
-        try {
-
-            if (!this.value("partnerName")) {
-
-                return this.toast(
-                    "Missing Name",
-                    "Enter partner name first.",
-                    true
-                );
-
-            }
-
-            const logoUrl =
-                await this.upload(
-                    "partnerLogo",
-                    "partners"
-                );
-
-            const key =
-                generateKey(this.paths.partners);
-
-            await this.save(
-
-                `${this.paths.partners}/${key}`,
-
-                {
-
-                    name: this.value("partnerName"),
-
-                    website: this.value("partnerWebsite"),
-
-                    logoUrl,
-
-                    active: true
-
-                },
-
-                "Partner added."
-
-            );
-
-        }
-
-        catch (error) {
-
-            this.toast(
-                "Upload Failed",
-                error.message,
-                true
             );
 
         }
@@ -536,14 +649,23 @@ const Admin = {
     },    async loadAll() {
 
         const [
+
             hero,
+
             about,
+
             services,
+
             industries,
-            employers,
+
+            applications,
+
+            footer,
+
             settings,
-            media,
-            forms
+
+            media
+
         ] = await Promise.all([
 
             readData(this.paths.hero),
@@ -554,16 +676,21 @@ const Admin = {
 
             readData(this.paths.industries),
 
-            readData(this.paths.employers),
+            readData(this.paths.applications),
+
+            readData(this.paths.footer),
 
             readData(this.paths.settings),
 
-            readData(this.paths.media),
-
-            readData("website/settings/googleForms")
+            readData(this.paths.media)
 
         ]);
 
+
+
+        /* -----------------------------
+           HERO
+        ----------------------------- */
 
         this.fill(hero, {
 
@@ -571,19 +698,15 @@ const Admin = {
 
             heroHeading: "heading",
 
-            heroDescription: "description",
-
-            heroPrimaryButton: "primaryButtonText",
-
-            heroPrimaryLink: "primaryButtonLink",
-
-            heroSecondaryButton: "secondaryButtonText",
-
-            heroSecondaryLink: "secondaryButtonLink"
+            heroDescription: "description"
 
         });
 
 
+
+        /* -----------------------------
+           ABOUT
+        ----------------------------- */
 
         this.fill(about, {
 
@@ -595,39 +718,139 @@ const Admin = {
 
 
 
-        this.fill(services, {
+        /* -----------------------------
+           APPLICATIONS
+        ----------------------------- */
 
-            serviceHeading: "heading",
+        this.setValue(
 
-            serviceDescription: "description"
+            "applicationHeading",
+
+            applications?.heading
+
+        );
+
+
+
+        this.setValue(
+
+            "applicationDescription",
+
+            applications?.description
+
+        );
+
+
+
+        this.setValue(
+
+            "employerTitle",
+
+            applications?.employer?.title
+
+        );
+
+
+
+        this.setValue(
+
+            "employerDescription",
+
+            applications?.employer?.description
+
+        );
+
+
+
+        this.setValue(
+
+            "employerButtonText",
+
+            applications?.employer?.buttonText
+
+        );
+
+
+
+        this.setValue(
+
+            "employerGoogleForm",
+
+            applications?.employer?.googleForm
+
+        );
+
+
+
+        this.setValue(
+
+            "candidateTitle",
+
+            applications?.candidate?.title
+
+        );
+
+
+
+        this.setValue(
+
+            "candidateDescription",
+
+            applications?.candidate?.description
+
+        );
+
+
+
+        this.setValue(
+
+            "candidateButtonText",
+
+            applications?.candidate?.buttonText
+
+        );
+
+
+
+        this.setValue(
+
+            "candidateGoogleForm",
+
+            applications?.candidate?.googleForm
+
+        );        /* -----------------------------
+           FOOTER
+        ----------------------------- */
+
+        this.fill(footer, {
+
+            companyName: "companyName",
+
+            companyPhone: "phone",
+
+            companyEmail: "email",
+
+            companyAddress: "address",
+
+            facebookUrl: "facebook",
+
+            instagramUrl: "instagram",
+
+            linkedinUrl: "linkedin",
+
+            youtubeUrl: "youtube",
+
+            whatsappNumber: "whatsapp",
+
+            googleMapsLink: "googleMaps"
 
         });
 
 
 
-        this.fill(industries, {
-
-            industryHeading: "heading",
-
-            industryDescription: "description"
-
-        });
-
-
-
-        this.fill(employers, {
-
-            employerHeading: "heading",
-
-            employerDescription: "description",
-
-            employerButtonText: "buttonText",
-
-            employerButtonLink: "buttonLink"
-
-        });
-
-
+        /* -----------------------------
+           SETTINGS
+        ----------------------------- */
 
         this.fill(settings, {
 
@@ -649,15 +872,9 @@ const Admin = {
 
 
 
-        this.fill(forms, {
-
-            employerGoogleForm: "employer"
-
-        });
-
-
-
-        // MAIN SECTION PREVIEWS
+        /* -----------------------------
+           IMAGE PREVIEWS
+        ----------------------------- */
 
         this.showStoredPreview(
 
@@ -666,6 +883,7 @@ const Admin = {
             hero?.imageUrl
 
         );
+
 
 
         this.showStoredPreview(
@@ -677,18 +895,6 @@ const Admin = {
         );
 
 
-        this.showStoredPreview(
-
-            "employerBannerPreview",
-
-            employers?.imageUrl
-
-        );
-
-
-
-        // MEDIA LIBRARY PREVIEWS
-
 
         this.showStoredPreview(
 
@@ -697,6 +903,7 @@ const Admin = {
             media?.logoUrl
 
         );
+
 
 
         this.showStoredPreview(
@@ -708,6 +915,7 @@ const Admin = {
         );
 
 
+
         this.showStoredPreview(
 
             "mediaAboutPreview",
@@ -715,6 +923,7 @@ const Admin = {
             media?.aboutImageUrl
 
         );
+
 
 
         this.showStoredPreview(
@@ -726,6 +935,17 @@ const Admin = {
         );
 
 
+
+        this.showStoredPreview(
+
+            "mediaCandidatePreview",
+
+            media?.candidateBannerUrl
+
+        );
+
+
+
         this.showStoredPreview(
 
             "mediaPartnerPreview",
@@ -734,22 +954,218 @@ const Admin = {
 
         );
 
+    },
 
-        this.showStoredPreview(
 
-            "mediaCoverPreview",
 
-            media?.coverImageUrl
+    fill(data, map) {
 
-        );
-
-    },    fill(data, map) {
+        if (!data) return;
 
         Object.entries(map).forEach(([id, key]) => {
 
             this.setValue(
+
                 id,
-                data?.[key]
+
+                data[key]
+
+            );
+
+        });
+
+    },    showStoredPreview(id, url) {
+
+        const preview = this.q(id);
+
+        if (!preview) return;
+
+        if (!url) {
+
+            preview.innerHTML = "";
+
+            return;
+
+        }
+
+        preview.innerHTML = `
+
+            <img
+                src="${url}"
+                alt="Preview"
+                style="
+                    width:100%;
+                    max-width:220px;
+                    border-radius:10px;
+                    margin-top:10px;
+                ">
+
+        `;
+
+    },
+
+
+
+    removeDuplicateMediaSection() {
+
+        const sections = document.querySelectorAll("section#media");
+
+        sections.forEach((section, index) => {
+
+            if (index > 0) {
+
+                section.remove();
+
+            }
+
+        });
+
+    },
+
+
+
+    refreshDashboardCounts() {
+
+        const partnerCount = this.q("partnerCount");
+
+        const mediaCount = this.q("mediaCount");
+
+
+
+        readData(this.paths.partners)
+
+            .then(data => {
+
+                if (!partnerCount) return;
+
+                partnerCount.textContent =
+
+                    data
+
+                        ? Object.keys(data).length
+
+                        : 0;
+
+            });
+
+
+
+        readData(this.paths.media)
+
+            .then(data => {
+
+                if (!mediaCount) return;
+
+
+
+                mediaCount.textContent =
+
+                    data
+
+                        ? Object.keys(data)
+
+                              .filter(key => !!data[key]).length
+
+                        : 0;
+
+            });
+
+    },    async initializeDashboard() {
+
+        try {
+
+            await this.loadAll();
+
+            this.refreshDashboardCounts();
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            this.toast(
+
+                "Initialization Error",
+
+                "Some data could not be loaded.",
+
+                true
+
+            );
+
+        }
+
+    },
+
+
+
+    async reloadCurrentPage() {
+
+        try {
+
+            await this.loadAll();
+
+            this.refreshDashboardCounts();
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+        }
+
+    },
+
+
+
+    enableAutoRefresh() {
+
+        const buttons = [
+
+            "saveHero",
+
+            "saveAbout",
+
+            "saveServices",
+
+            "saveIndustries",
+
+            "saveEmployers",
+
+            "saveFooter",
+
+            "saveSettings",
+
+            "saveMedia"
+
+        ];
+
+
+
+        buttons.forEach(id => {
+
+            const btn = this.q(id);
+
+            if (!btn) return;
+
+
+
+            btn.addEventListener(
+
+                "click",
+
+                () => {
+
+                    setTimeout(() => {
+
+                        this.reloadCurrentPage();
+
+                    }, 1000);
+
+                }
+
             );
 
         });
@@ -757,41 +1173,67 @@ const Admin = {
     },
 
 
-    showStoredPreview(id, url) {
 
-        const preview = this.q(id);
+    start() {
 
-        if (url && preview) {
+        this.bindNavigation();
 
-            preview.innerHTML =
-                `<img src="${url}" alt="Saved image">`;
+        this.bindUploadBoxes();
 
-        }
+        this.bindButtons();
 
-    },
+        this.enableAutoRefresh();
 
-
-    removeDuplicateMediaSection() {
-
-        document
-            .querySelectorAll("section#media")
-            .forEach((section, index) => {
-
-                if (index > 0) {
-
-                    section.remove();
-
-                }
-
-            });
+        this.initializeDashboard();
 
     }
 
-};
-
-
+};/* =====================================================
+   FINAL INITIALIZATION
+===================================================== */
 
 document.addEventListener(
+
     "DOMContentLoaded",
-    () => Admin.init()
+
+    () => {
+
+        try {
+
+            Admin.init();
+
+            Admin.start();
+
+            console.log(
+
+                "✅ GRAPTO Admin Panel Loaded Successfully"
+
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+
+                "Admin Startup Error:",
+
+                error
+
+            );
+
+            Admin.toast(
+
+                "Startup Error",
+
+                "Unable to initialize the Admin Panel.",
+
+                true
+
+            );
+
+        }
+
+    }
+
 );
