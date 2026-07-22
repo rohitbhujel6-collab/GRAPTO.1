@@ -1188,52 +1188,20 @@ const Admin = {
 
     }
 
-};/* =====================================================
-   FINAL INITIALIZATION
-===================================================== */
+};document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener(
+    try {
 
-    "DOMContentLoaded",
+        Admin.init();
 
-    () => {
-
-        try {
-
-            Admin.init();
-
-            Admin.start();
-
-            console.log(
-
-                "✅ GRAPTO Admin Panel Loaded Successfully"
-
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-
-                "Admin Startup Error:",
-
-                error
-
-            );
-
-            Admin.toast(
-
-                "Startup Error",
-
-                "Unable to initialize the Admin Panel.",
-
-                true
-
-            );
-
-        }
+        console.log("GRAPTO Admin Loaded");
 
     }
 
-);
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+});
