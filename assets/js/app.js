@@ -30,7 +30,10 @@ const GRAPTO = {
             this.renderCandidates(website.candidates || {});
             this.renderFooter(website.contact || {});
             this.renderMedia(website.media || {});
-            this.applyForms(website.settings?.googleForms || {});
+            this.applyForms({
+    employer: website.applications?.employer?.googleForm || "",
+    candidate: website.applications?.candidate?.googleForm || ""
+});
 
         }, error => {
 
