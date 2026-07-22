@@ -1,2003 +1,469 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GRAPTO Admin Panel</title>
-
-<meta
-name="robots"
-content="noindex,nofollow">
-
-<!-- ==========================================
-GOOGLE FONTS
-========================================== -->
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
-
-<!-- ==========================================
-FONT AWESOME
-========================================== -->
-
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
-<!-- ==========================================
-CSS
-========================================== -->
-
-<link rel="stylesheet" href="assets/css/variables.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/admin.css">
-
-<!-- ==========================================
-FIREBASE
-========================================== -->
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+  <!DOCTYPE html>
+  <html lang="en">
   
-</head>
-
-<body>
-
-<div class="admin-layout">
-
-<!-- ==========================================
-SIDEBAR
-========================================== -->
-
-<aside class="sidebar">
-
-<div class="sidebar-logo">
-
-<img
-src="assets/images/logos/logo.png"
-alt="GRAPTO">
-
-</div>
-
-<nav class="sidebar-menu">
-
-<a
-href="#"
-class="active"
-data-page="dashboard">
-
-<i class="fa-solid fa-chart-line"></i>
-
-<span>Dashboard</span>
-
-</a>
-
-<a
-href="#"
-data-page="hero">
-
-<i class="fa-solid fa-house"></i>
-
-<span>Hero Section</span>
-
-</a>
-
-<a
-href="#"
-data-page="about">
-
-<i class="fa-solid fa-circle-info"></i>
-
-<span>About</span>
-
-</a>
-
-<a
-href="#"
-data-page="services">
-
-<i class="fa-solid fa-briefcase"></i>
-
-<span>Services</span>
-
-</a>
-
-<a
-href="#"
-data-page="industries">
-
-<i class="fa-solid fa-industry"></i>
-
-<span>Industries</span>
-
-</a>
-
-<a
-href="#"
-data-page="applications">
-
-<i class="fa-solid fa-file-signature"></i>
-
-<span>Applications</span>
-
-</a>
+  <head>
   
-<a
-href="#"
-data-page="candidates">
-
-<i class="fa-solid fa-user-group"></i>
-
-<span>Candidates</span>
-
-</a>
-
-<a
-href="#"
-data-page="footer">
-
-<i class="fa-solid fa-address-card"></i>
-
-<span>Footer</span>
-
-</a>
-
-</nav>
-
-</aside><!-- ==========================================
-MAIN CONTENT
-========================================== -->
-
-<div class="main-content">
-
-<!-- ==========================================
-TOP HEADER
-========================================== -->
-
-<header class="admin-header">
-
-<div class="header-left">
-
-<div>
-
-<h1 class="page-title">
-
-Dashboard
-
-</h1>
-
-<p class="page-subtitle">
-
-Welcome to the GRAPTO Admin Panel
-
-</p>
-
-</div>
-
-</div>
-
-<div class="header-right">
-
-<div class="admin-search">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-<input
-type="text"
-placeholder="Search..."
-data-table-search>
-
-</div>
-
-<div
-class="header-icon"
-id="notificationBtn">
-
-<i class="fa-regular fa-bell"></i>
-
-</div>
-
-<div
-class="header-icon"
-id="sidebarToggle">
-
-<i class="fa-solid fa-bars"></i>
-
-</div>
-
-<div class="admin-profile">
-
-<img
-src="assets/images/logos/logo.png"
-alt="GRAPTO">
+  <meta charset="UTF-8">
   
-<div class="admin-profile-info">
-
-<h4>
-
-Administrator
-
-</h4>
-
-<span>
-
-GRAPTO CMS
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</header>
-
-<!-- ==========================================
-ADMIN BODY
-========================================== -->
-
-<div class="admin-body">
-
-<div class="content-wrapper">
-
-<!-- ==========================================
-DASHBOARD
-========================================== -->
-
-<section
-class="admin-page"
-id="dashboard">
-
-<div class="stats-grid">
-
-<div class="stat-card">
-
-<div class="stat-info">
-
-<span class="stat-label">
-
-Website Sections
-
-</span>
-
-<h2 class="stat-value">
-
-9
-
-</h2>
-
-<span class="stat-change">
-
-Editable Modules
-
-</span>
-
-</div>
-
-<div class="stat-icon">
-
-<i class="fa-solid fa-layer-group"></i>
-
-</div>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-info">
-
-<span class="stat-label">
-
-Services
-
-</span>
-
-<h2 class="stat-value">
-
-6
-
-</h2>
-
-<span class="stat-change">
-
-Published
-
-</span>
-
-</div>
-
-<div class="stat-icon">
-
-<i class="fa-solid fa-briefcase"></i>
-
-</div>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-info">
-
-<span class="stat-label">
-
-Partners
-
-</span>
-
-<h2 class="stat-value"
-id="partnerCount">
-
-0
-
-</h2>
-
-<span class="stat-change">
-
-Ready to Add
-
-</span>
-
-</div>
-
-<div class="stat-icon">
-
-<i class="fa-solid fa-handshake"></i>
-
-</div>
-
-</div>
-
-<div class="stat-card">
-
-<div class="stat-info">
-
-<span class="stat-label">
-
-Media Files
-
-</span>
-
-<h2
-class="stat-value"
-id="mediaCount">
-
-0
-
-</h2>
-
-<span class="stat-change">
-
-Cloud Storage
-
-</span>
-
-</div>
-
-<div class="stat-icon">
-
-<i class="fa-solid fa-image"></i>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="quick-grid">
-
-<div class="quick-card">
-
-<div class="icon-box">
-
-<i class="fa-solid fa-house"></i>
-
-</div>
-
-<h3>
-
-Manage Homepage
-
-</h3>
-
-<p>
-
-Update hero content, CTA buttons and homepage information.
-
-</p>
-
-</div>
-
-<div class="quick-card">
-
-<div class="icon-box">
-
-<i class="fa-solid fa-image"></i>
-
-</div>
-
-<h3>
-
-Media Library
-
-</h3>
-
-<p>
-
-Upload and organize website images.
-
-</p>
-
-</div>
-
-<div class="quick-card">
-
-<div class="icon-box">
-
-<i class="fa-solid fa-gear"></i>
-
-</div>
-
-<h3>
-
-Website Settings
-
-</h3>
-
-<p>
-
-Manage branding, social media and general settings.
-
-</p>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-HERO MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="hero">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Hero Section
-
-</h2>
-
-<p>
-
-Manage homepage hero content.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group full">
-
-<label>
-
-Hero Tag
-
-</label>
-
-<input
-type="text"
-id="heroTag"
-placeholder="Recruitment • Staffing • HR Solutions">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Hero Heading
-
-</label>
-
-<input
-type="text"
-id="heroHeading"
-placeholder="Connecting Talent. Driving Growth.">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Hero Description
-
-</label>
-
-<textarea
-id="heroDescription"
-placeholder="Write homepage description..."></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Primary Button Text
-
-</label>
-
-<input
-type="text"
-id="heroPrimaryButton"
-placeholder="Hire Talent">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Primary Button Link
-
-</label>
-
-<input
-type="url"
-id="heroPrimaryLink"
-placeholder="https://">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Secondary Button Text
-
-</label>
-
-<input
-type="text"
-id="heroSecondaryButton"
-placeholder="Find Jobs">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Secondary Button Link
-
-</label>
-
-<input
-type="url"
-id="heroSecondaryLink"
-placeholder="https://">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Hero Image
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-cloud-arrow-up"></i>
-
-<h4>
-
-Upload Hero Image
-
-</h4>
-
-<p>
-
-JPG, PNG or WEBP
-
-</p>
-
-<input
-type="file"
-id="heroImage"
-accept="image/*"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="heroPreview">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveHero">
-
-Save Hero Section
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-ABOUT MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="about">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-About Section
-
-</h2>
-
-<p>
-
-Manage About section content.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group full">
-
-<label>
-
-Section Heading
-
-</label>
-
-<input
-type="text"
-id="aboutHeading"
-placeholder="Professional Recruitment & Workforce Solutions">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Section Description
-
-</label>
-
-<textarea
-id="aboutDescription"
-placeholder="Write about your company..."></textarea>
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-About Image
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-cloud-arrow-up"></i>
-
-<h4>
-
-Upload About Image
-
-</h4>
-
-<p>
-
-JPG, PNG or WEBP
-
-</p>
-
-<input
-type="file"
-id="aboutImage"
-accept="image/*"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="aboutPreview">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveAbout">
-
-Save About Section
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-SERVICES MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="services">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Services
-
-</h2>
-
-<p>
-
-Manage all recruitment services.
-
-</p>
-
-</div>
-
-<button
-class="btn btn-primary"
-id="addService">
-
-<i class="fa-solid fa-plus"></i>
-
-Add Service
-
-</button>
-
-</div>
-
-<div class="table-wrapper">
-
-<table
-class="admin-table"
-id="servicesTable">
-
-<thead>
-
-<tr>
-
-<th>Service</th>
-
-<th>Description</th>
-
-<th>Status</th>
-
-<th>Actions</th>
-
-</tr>
-
-</thead>
-
-<tbody id="servicesTableBody">
-
-<tr>
-
-<td>Permanent Hiring</td>
-
-<td>Long-term recruitment solutions</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Contract Staffing</td>
-
-<td>Temporary workforce solutions</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Executive Search</td>
-
-<td>Leadership hiring solutions</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>HR Consulting</td>
-
-<td>Professional HR advisory</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Bulk Recruitment</td>
-
-<td>Mass hiring solutions</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Workforce Solutions</td>
-
-<td>End-to-end staffing support</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-INDUSTRIES MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="industries">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Industries
-
-</h2>
-
-<p>
-
-Manage industries displayed on the website.
-
-</p>
-
-</div>
-
-<button
-class="btn btn-primary"
-id="addIndustry">
-
-<i class="fa-solid fa-plus"></i>
-
-Add Industry
-
-</button>
-
-</div>
-
-<div class="table-wrapper">
-
-<table
-class="admin-table"
-id="industriesTable">
-
-<thead>
-
-<tr>
-
-<th>Industry</th>
-
-<th>Status</th>
-
-<th>Actions</th>
-
-</tr>
-
-</thead>
-
-<tbody id="industriesTableBody">
-
-<tr>
-
-<td>Retail</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Information Technology</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Healthcare</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Manufacturing</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>BFSI</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr>
-
-<td>Education</td>
-
-<td>
-
-<span class="status active">
-
-Active
-
-</span>
-
-</td>
-
-<td>
-
-<div class="table-actions">
-
-<button
-class="action-btn view">
-
-<i class="fa-solid fa-eye"></i>
-
-</button>
-
-<button
-class="action-btn edit">
-
-<i class="fa-solid fa-pen"></i>
-
-</button>
-
-<button
-class="action-btn delete">
-
-<i class="fa-solid fa-trash"></i>
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-EMPLOYERS MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="applications">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Employers Section
-
-</h2>
-
-<p>
-
-Manage employer page content.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group full">
-
-<label>
-
-Heading
-
-</label>
-
-<input
-type="text"
-id="employerHeading"
-placeholder="Hire Better Talent">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Description
-
-</label>
-
-<textarea
-id="employerDescription"
-placeholder="Employer section description..."></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Button Text
-
-</label>
-
-<input
-type="text"
-id="employerButtonText"
-placeholder="Hire Talent">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Button Link
-
-</label>
-
-<input
-type="url"
-id="employerButtonLink"
-placeholder="https://">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Employer Google Form URL
-
-</label>
-
-<input
-type="url"
-id="employerGoogleForm"
-placeholder="https://forms.gle/xxxxxxxx">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Employer Banner Image
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-cloud-arrow-up"></i>
-
-<h4>
-
-Upload Employer Banner
-
-</h4>
-
-<p>
-
-JPG, PNG or WEBP
-
-</p>
-
-<input
-type="file"
-id="employerBanner"
-accept="image/*"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="employerBannerPreview">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveEmployers">
-
-Save Employers Section
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-CANDIDATES MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="candidates">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Candidates Section
-
-</h2>
-
-<p>
-
-Manage candidate page content.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group full">
-
-<label>
-
-Heading
-
-</label>
-
-<input
-type="text"
-id="candidateHeading"
-placeholder="Build Your Career">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Description
-
-</label>
-
-<textarea
-id="candidateDescription"
-placeholder="Candidate section description..."></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Button Text
-
-</label>
-
-<input
-type="text"
-id="candidateButtonText"
-placeholder="Register Now">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Button Link
-
-</label>
-
-<input
-type="url"
-id="candidateButtonLink"
-placeholder="https://">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Candidate Google Form URL
-
-</label>
-
-<input
-type="url"
-id="candidateGoogleForm"
-placeholder="https://forms.gle/xxxxxxxx">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Candidate Banner Image
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-cloud-arrow-up"></i>
-
-<h4>
-
-Upload Candidate Banner
-
-</h4>
-
-<p>
-
-JPG, PNG or WEBP
-
-</p>
-
-<input
-type="file"
-id="candidateBanner"
-accept="image/*"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="candidateBannerPreview">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveCandidates">
-
-Save Candidates Section
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-FOOTER MANAGER
-========================================== -->
-
-<section
-class="admin-page"
-id="footer">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Footer Settings
-
-</h2>
-
-<p>
-
-Manage contact details and social media links.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>
-
-Company Name
-
-</label>
-
-<input
-type="text"
-id="companyName"
-value="GRAPTO">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Phone Number
-
-</label>
-
-<input
-type="text"
-id="companyPhone"
-placeholder="+91 9876543210">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Email Address
-
-</label>
-
-<input
-type="email"
-id="companyEmail"
-placeholder="contact@grapto.in">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Company Address
-
-</label>
-
-<textarea
-id="companyAddress"
-placeholder="Enter company address"></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Facebook URL
-
-</label>
-
-<input
-type="url"
-id="facebookUrl"
-placeholder="https://facebook.com/yourpage">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Instagram URL
-
-</label>
-
-<input
-type="url"
-id="instagramUrl"
-placeholder="https://instagram.com/yourpage">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-LinkedIn URL
-
-</label>
-
-<input
-type="url"
-id="linkedinUrl"
-placeholder="https://linkedin.com/company/yourcompany">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-YouTube URL
-
-</label>
-
-<input
-type="url"
-id="youtubeUrl"
-placeholder="https://youtube.com/@yourchannel">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-WhatsApp Number
-
-</label>
-
-<input
-type="text"
-id="whatsappNumber"
-placeholder="+91 9876543210">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Google Maps Link
-
-</label>
-
-<input
-type="url"
-id="googleMapsLink"
-placeholder="https://maps.google.com/...">
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveFooter">
-
-Save Footer Settings
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-  MEDIA LIBRARY
+  <title>GRAPTO Admin Panel</title>
+  
+  <meta
+  name="robots"
+  content="noindex,nofollow">
+  
+  <!-- ==========================================
+  GOOGLE FONTS
+  ========================================== -->
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin>
+  
+  <link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  rel="stylesheet">
+  
+  <!-- ==========================================
+  FONT AWESOME
+  ========================================== -->
+  
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  
+  <!-- ==========================================
+  CSS
+  ========================================== -->
+  
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  
+  <!-- ==========================================
+  FIREBASE
+  ========================================== -->
+  
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+    
+  </head>
+  
+  <body>
+  
+  <div class="admin-layout">
+  
+  <!-- ==========================================
+  SIDEBAR
+  ========================================== -->
+  
+  <aside class="sidebar">
+  
+  <div class="sidebar-logo">
+  
+  <img
+  src="assets/images/logos/logo.png"
+  alt="GRAPTO">
+  
+  </div>
+  
+  <nav class="sidebar-menu">
+  
+  <a
+  href="#"
+  class="active"
+  data-page="dashboard">
+  
+  <i class="fa-solid fa-chart-line"></i>
+  
+  <span>Dashboard</span>
+  
+  </a>
+  
+  <a
+  href="#"
+  data-page="hero">
+  
+  <i class="fa-solid fa-house"></i>
+  
+  <span>Hero Section</span>
+  
+  </a>
+  
+  <a
+  href="#"
+  data-page="about">
+  
+  <i class="fa-solid fa-circle-info"></i>
+  
+  <span>About</span>
+  
+  </a>
+  
+  <a
+  href="#"
+  data-page="services">
+  
+  <i class="fa-solid fa-briefcase"></i>
+  
+  <span>Services</span>
+  
+  </a>
+  
+  <a
+  href="#"
+  data-page="industries">
+  
+  <i class="fa-solid fa-industry"></i>
+  
+  <span>Industries</span>
+  
+  </a>
+  
+  <a
+  href="#"
+  data-page="applications">
+  
+  <i class="fa-solid fa-file-signature"></i>
+  
+  <span>Applications</span>
+  
+  </a>
+    
+  <a
+  href="#"
+  data-page="footer">
+  
+  <i class="fa-solid fa-address-card"></i>
+  
+  <span>Footer</span>
+  
+  </a>
+  
+  </nav>
+  
+  </aside><!-- ==========================================
+  MAIN CONTENT
+  ========================================== -->
+  
+  <div class="main-content">
+  
+  <!-- ==========================================
+  TOP HEADER
+  ========================================== -->
+  
+  <header class="admin-header">
+  
+  <div class="header-left">
+  
+  <div>
+  
+  <h1 class="page-title">
+  
+  Dashboard
+  
+  </h1>
+  
+  <p class="page-subtitle">
+  
+  Welcome to the GRAPTO Admin Panel
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <div class="header-right">
+  
+  <div class="admin-search">
+  
+  <i class="fa-solid fa-magnifying-glass"></i>
+  
+  <input
+  type="text"
+  placeholder="Search..."
+  data-table-search>
+  
+  </div>
+  
+  <div
+  class="header-icon"
+  id="notificationBtn">
+  
+  <i class="fa-regular fa-bell"></i>
+  
+  </div>
+  
+  <div
+  class="header-icon"
+  id="sidebarToggle">
+  
+  <i class="fa-solid fa-bars"></i>
+  
+  </div>
+  
+  <div class="admin-profile">
+  
+  <img
+  src="assets/images/logos/logo.png"
+  alt="GRAPTO">
+    
+  <div class="admin-profile-info">
+  
+  <h4>
+  
+  Administrator
+  
+  </h4>
+  
+  <span>
+  
+  GRAPTO CMS
+  
+  </span>
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  </header>
+  
+  <!-- ==========================================
+  ADMIN BODY
+  ========================================== -->
+  
+  <div class="admin-body">
+  
+  <div class="content-wrapper">
+  
+  <!-- ==========================================
+  DASHBOARD
   ========================================== -->
   
   <section
   class="admin-page"
-  id="media">
+  id="dashboard">
+  
+  <div class="stats-grid">
+  
+  <div class="stat-card">
+  
+  <div class="stat-info">
+  
+  <span class="stat-label">
+  
+  Website Sections
+  
+  </span>
+  
+  <h2 class="stat-value">
+  
+  9
+  
+  </h2>
+  
+  <span class="stat-change">
+  
+  Editable Modules
+  
+  </span>
+  
+  </div>
+  
+  <div class="stat-icon">
+  
+  <i class="fa-solid fa-layer-group"></i>
+  
+  </div>
+  
+  </div>
+  
+  <div class="stat-card">
+  
+  <div class="stat-info">
+  
+  <span class="stat-label">
+  
+  Services
+  
+  </span>
+  
+  <h2 class="stat-value">
+  
+  6
+  
+  </h2>
+  
+  <span class="stat-change">
+  
+  Published
+  
+  </span>
+  
+  </div>
+  
+  <div class="stat-icon">
+  
+  <i class="fa-solid fa-briefcase"></i>
+  
+  </div>
+  
+  </div>
+  
+  <div class="stat-card">
+  
+  <div class="stat-info">
+  
+  <span class="stat-label">
+  
+  Partners
+  
+  </span>
+  
+  <h2 class="stat-value"
+  id="partnerCount">
+  
+  0
+  
+  </h2>
+  
+  <span class="stat-change">
+  
+  Ready to Add
+  
+  </span>
+  
+  </div>
+  
+  <div class="stat-icon">
+  
+  <i class="fa-solid fa-handshake"></i>
+  
+  </div>
+  
+  </div>
+  
+  <div class="stat-card">
+  
+  <div class="stat-info">
+  
+  <span class="stat-label">
+  
+  Media Files
+  
+  </span>
+  
+  <h2
+  class="stat-value"
+  id="mediaCount">
+  
+  0
+  
+  </h2>
+  
+  <span class="stat-change">
+  
+  Cloud Storage
+  
+  </span>
+  
+  </div>
+  
+  <div class="stat-icon">
+  
+  <i class="fa-solid fa-image"></i>
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="quick-grid">
+  
+  <div class="quick-card">
+  
+  <div class="icon-box">
+  
+  <i class="fa-solid fa-house"></i>
+  
+  </div>
+  
+  <h3>
+  
+  Manage Homepage
+  
+  </h3>
+  
+  <p>
+  
+  Update hero content, CTA buttons and homepage information.
+  
+  </p>
+  
+  </div>
+  
+  <div class="quick-card">
+  
+  <div class="icon-box">
+  
+  <i class="fa-solid fa-image"></i>
+  
+  </div>
+  
+  <h3>
+  
+  Media Library
+  
+  </h3>
+  
+  <p>
+  
+  Upload and organize website images.
+  
+  </p>
+  
+  </div>
+  
+  <div class="quick-card">
+  
+  <div class="icon-box">
+  
+  <i class="fa-solid fa-gear"></i>
+  
+  </div>
+  
+  <h3>
+  
+  Website Settings
+  
+  </h3>
+  
+  <p>
+  
+  Manage branding, social media and general settings.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  HERO MANAGER
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="hero">
   
   <div class="content-card">
   
@@ -2007,13 +473,13 @@ Save Footer Settings
   
   <h2>
   
-  Media Library
+  Hero Section
   
   </h2>
   
   <p>
   
-  Manage all website images and logos.
+  Manage homepage hero content.
   
   </p>
   
@@ -2023,35 +489,77 @@ Save Footer Settings
   
   <div class="form-grid">
   
-  <!-- Website Logo -->
+  <div class="form-group full">
+  
+  <label>
+  
+  Hero Tag
+  
+  </label>
+  
+  <input
+  type="text"
+  id="heroTag"
+  placeholder="Recruitment • Staffing • HR Solutions">
+  
+  </div>
   
   <div class="form-group full">
   
   <label>
   
-  Website Logo
+  Hero Heading
+  
+  </label>
+  
+  <input
+  type="text"
+  id="heroHeading"
+  placeholder="Connecting Talent. Driving Growth.">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Hero Description
+  
+  </label>
+  
+  <textarea
+  id="heroDescription"
+  placeholder="Write homepage description..."></textarea>
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Hero Cover Image
   
   </label>
   
   <div class="upload-box">
   
-  <i class="fa-solid fa-image"></i>
+  <i class="fa-solid fa-cloud-arrow-up"></i>
   
   <h4>
   
-  Upload Website Logo
+  Upload Hero Cover Image
   
   </h4>
   
   <p>
   
-  PNG, JPG, SVG or WEBP
+  JPG, PNG or WEBP
   
   </p>
   
   <input
   type="file"
-  id="websiteLogo"
+  id="heroImage"
   accept="image/*"
   hidden>
   
@@ -2059,260 +567,20 @@ Save Footer Settings
   
   <div
   class="image-preview"
-  id="websiteLogoPreview">
+  id="heroPreview">
   
   </div>
   
-  </div>
+  <div class="action-bar">
   
-  <!-- Hero Image -->
+  <button
+  type="button"
+  class="btn btn-danger"
+  id="deleteHeroImage">
   
-  <div class="form-group full">
+  Delete Hero Image
   
-  <label>
-  
-  Hero Image
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-image"></i>
-  
-  <h4>
-  
-  Upload Hero Image
-  
-  </h4>
-  
-  <p>
-  
-  PNG, JPG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="mediaHeroImage"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="mediaHeroPreview">
-  
-  </div>
-  
-  </div>
-  
-  <!-- About Image -->
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  About Image
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-image"></i>
-  
-  <h4>
-  
-  Upload About Image
-  
-  </h4>
-  
-  <p>
-  
-  PNG, JPG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="mediaAboutImage"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="mediaAboutPreview">
-  
-  </div>
-  
-  </div>
-  
-  <!-- Employer Banner -->
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  Employer Banner
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-image"></i>
-  
-  <h4>
-  
-  Upload Employer Banner
-  
-  </h4>
-  
-  <p>
-  
-  PNG, JPG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="mediaEmployerBanner"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="mediaEmployerPreview">
-  
-  </div>
-  
-  </div>
-  
-  <!-- Candidate Banner -->
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  Candidate Banner
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-image"></i>
-  
-  <h4>
-  
-  Upload Candidate Banner
-  
-  </h4>
-  
-  <p>
-  
-  PNG, JPG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="mediaCandidateBanner"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="mediaCandidatePreview">
-  
-  </div>
-  
-  </div>
-  
-  <!-- Partner Logo -->
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  Partner Logo
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-image"></i>
-  
-  <h4>
-  
-  Upload Partner Logo
-  
-  </h4>
-  
-  <p>
-  
-  PNG, JPG, SVG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="mediaPartnerLogo"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="mediaPartnerPreview">
-  
-  </div>
-  
-  </div>
-  
-  <!-- Gallery -->
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  Gallery Images
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-images"></i>
-  
-  <h4>
-  
-  Upload Gallery Images
-  
-  </h4>
-  
-  <p>
-  
-  Multiple Upload Supported
-  
-  </p>
-  
-  <input
-  type="file"
-  id="galleryImages"
-  multiple
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="galleryPreview">
+  </button>
   
   </div>
   
@@ -2324,9 +592,9 @@ Save Footer Settings
   
   <button
   class="btn btn-primary"
-  id="saveMedia">
+  id="saveHero">
   
-  Save Media Library
+  Save Hero Section
   
   </button>
   
@@ -2335,462 +603,1975 @@ Save Footer Settings
   </div>
   
   </section><!-- ==========================================
-SETTINGS
-========================================== -->
-
-<section
-class="admin-page"
-id="settings">
-
-<div class="content-card">
-
-<div class="card-header">
-
-<div>
-
-<h2>
-
-Website Settings
-
-</h2>
-
-<p>
-
-General configuration for GRAPTO.
-
-</p>
-
-</div>
-
-</div>
-
-<div class="form-grid">
-
-<div class="form-group">
-
-<label>
-
-Website Title
-
-</label>
-
-<input
-type="text"
-id="websiteTitle"
-placeholder="GRAPTO">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Website Tagline
-
-</label>
-
-<input
-type="text"
-id="websiteTagline"
-placeholder="Recruitment • Staffing • HR Solutions">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Admin Email
-
-</label>
-
-<input
-type="email"
-id="adminEmail"
-placeholder="admin@grapto.in">
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Support Email
-
-</label>
-
-<input
-type="email"
-id="supportEmail"
-placeholder="support@grapto.in">
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Website Meta Description
-
-</label>
-
-<textarea
-id="metaDescription"
-placeholder="Website Meta Description"></textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Maintenance Mode
-
-</label>
-
-<select
-id="maintenanceMode">
-
-<option value="Disabled" selected>
-
-Disabled
-
-</option>
-
-<option value="Enabled">
-
-Enabled
-
-</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>
-
-Default Language
-
-</label>
-
-<select
-id="defaultLanguage">
-
-<option selected>
-
-English
-
-</option>
-
-<option>
-
-Hindi
-
-</option>
-
-</select>
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Favicon
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-earth-americas"></i>
-
-<h4>
-
-Upload Website Favicon
-
-</h4>
-
-<p>
-
-ICO, PNG or SVG
-
-</p>
-
-<input
-type="file"
-id="websiteFavicon"
-accept=".ico,.png,.svg"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="faviconPreview">
-
-</div>
-
-</div>
-
-<div class="form-group full">
-
-<label>
-
-Default Website Logo
-
-</label>
-
-<div class="upload-box">
-
-<i class="fa-solid fa-image"></i>
-
-<h4>
-
-Upload Primary Logo
-
-</h4>
-
-<p>
-
-PNG, SVG or WEBP
-
-</p>
-
-<input
-type="file"
-id="primaryLogo"
-accept="image/*"
-hidden>
-
-</div>
-
-<div
-class="image-preview"
-id="primaryLogoPreview">
-
-</div>
-
-</div>
-
-</div>
-
-<div class="action-bar">
-
-<button
-class="btn btn-primary"
-id="saveSettings">
-
-Save Website Settings
-
-</button>
-
-</div>
-
-</div>
-
-</section><!-- ==========================================
-LOGOUT MODAL
-========================================== -->
-
-<div
-class="modal-overlay"
-id="logoutModal">
-
-<div class="modal">
-
-<div class="modal-icon">
-
-<i class="fa-solid fa-right-from-bracket"></i>
-
-</div>
-
-<h3>
-
-Logout
-
-</h3>
-
-<p>
-
-Are you sure you want to logout from the Admin Panel?
-
-</p>
-
-<div class="modal-actions">
-
-<button
-class="btn btn-secondary"
-id="cancelLogout">
-
-Cancel
-
-</button>
-
-<button
-class="btn btn-primary"
-id="confirmLogout">
-
-Logout
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ==========================================
-DELETE CONFIRMATION MODAL
-========================================== -->
-
-<div
-class="modal-overlay"
-id="deleteModal">
-
-<div class="modal">
-
-<div class="modal-icon">
-
-<i class="fa-solid fa-trash"></i>
-
-</div>
-
-<h3>
-
-Delete Record
-
-</h3>
-
-<p
-id="deleteMessage">
-
-Are you sure you want to delete this item?
-
-</p>
-
-<div class="modal-actions">
-
-<button
-class="btn btn-secondary"
-id="cancelDelete">
-
-Cancel
-
-</button>
-
-<button
-class="btn btn-danger"
-id="confirmDelete">
-
-Delete
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ==========================================
-LOADING OVERLAY
-========================================== -->
-
-<div
-class="loading-overlay"
-id="loadingOverlay">
-
-<div class="loader"></div>
-
-<p>
-
-Please wait...
-
-</p>
-
-</div>
-
-<!-- ==========================================
-SUCCESS TOAST
-========================================== -->
-
-<div
-class="toast"
-id="toast">
-
-<div class="toast-icon">
-
-<i class="fa-solid fa-circle-check"></i>
-
-</div>
-
-<div class="toast-content">
-
-<h4
-id="toastTitle">
-
-Success
-
-</h4>
-
-<p
-id="toastMessage">
-
-Operation completed successfully.
-
-</p>
-
-</div>
-
-</div>
-
-<!-- ==========================================
-ERROR TOAST
-========================================== -->
-
-<div
-class="toast error"
-id="errorToast">
-
-<div class="toast-icon">
-
-<i class="fa-solid fa-circle-exclamation"></i>
-
-</div>
-
-<div class="toast-content">
-
-<h4
-id="errorToastTitle">
-
-Error
-
-</h4>
-
-<p
-id="errorToastMessage">
-
-Something went wrong.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div><!-- ==========================================
-GRAPTO ADMIN PANEL
-Version 1.0
-========================================== -->
-
-  <script src="assets/js/firebase.js"></script>
-<script src="assets/js/admin.js"></script>
+  ABOUT MANAGER
+  ========================================== -->
   
-</body>
-
-</html>
+  <section
+  class="admin-page"
+  id="about">
+  
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  About Section
+  
+  </h2>
+  
+  <p>
+  
+  Manage About section content.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <div class="form-grid">
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Section Heading
+  
+  </label>
+  
+  <input
+  type="text"
+  id="aboutHeading"
+  placeholder="Professional Recruitment & Workforce Solutions">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Section Description
+  
+  </label>
+  
+  <textarea
+  id="aboutDescription"
+  placeholder="Write about your company..."></textarea>
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  About Image
+  
+  </label>
+  
+  <div class="upload-box">
+  
+  <i class="fa-solid fa-cloud-arrow-up"></i>
+  
+  <h4>
+  
+  Upload About Image
+  
+  </h4>
+  
+  <p>
+  
+  JPG, PNG or WEBP
+  
+  </p>
+  
+  <input
+  type="file"
+  id="aboutImage"
+  accept="image/*"
+  hidden>
+  
+  </div>
+  
+  <div
+  class="image-preview"
+  id="aboutPreview">
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="action-bar">
+  
+  <button
+  class="btn btn-primary"
+  id="saveAbout">
+  
+  Save About Section
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  SERVICES MANAGER
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="services">
+  
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  Services
+  
+  </h2>
+  
+  <p>
+  
+  Manage all recruitment services.
+  
+  </p>
+  
+  </div>
+  
+  <button
+  class="btn btn-primary"
+  id="addService">
+  
+  <i class="fa-solid fa-plus"></i>
+  
+  Add Service
+  
+  </button>
+  
+  </div>
+  
+  <div class="table-wrapper">
+  
+  <table
+  class="admin-table"
+  id="servicesTable">
+  
+  <thead>
+  
+  <tr>
+  
+  <th>Service</th>
+  
+  <th>Description</th>
+  
+  <th>Status</th>
+  
+  <th>Actions</th>
+  
+  </tr>
+  
+  </thead>
+  
+  <tbody id="servicesTableBody">
+  
+  <tr>
+  
+  <td>Permanent Hiring</td>
+  
+  <td>Long-term recruitment solutions</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Contract Staffing</td>
+  
+  <td>Temporary workforce solutions</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Executive Search</td>
+  
+  <td>Leadership hiring solutions</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>HR Consulting</td>
+  
+  <td>Professional HR advisory</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Bulk Recruitment</td>
+  
+  <td>Mass hiring solutions</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Workforce Solutions</td>
+  
+  <td>End-to-end staffing support</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  </tbody>
+  
+  </table>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  INDUSTRIES MANAGER
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="industries">
+  
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  Industries
+  
+  </h2>
+  
+  <p>
+  
+  Manage industries displayed on the website.
+  
+  </p>
+  
+  </div>
+  
+  <button
+  class="btn btn-primary"
+  id="addIndustry">
+  
+  <i class="fa-solid fa-plus"></i>
+  
+  Add Industry
+  
+  </button>
+  
+  </div>
+  
+  <div class="table-wrapper">
+  
+  <table
+  class="admin-table"
+  id="industriesTable">
+  
+  <thead>
+  
+  <tr>
+  
+  <th>Industry</th>
+  
+  <th>Status</th>
+  
+  <th>Actions</th>
+  
+  </tr>
+  
+  </thead>
+  
+  <tbody id="industriesTableBody">
+  
+  <tr>
+  
+  <td>Retail</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Information Technology</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Healthcare</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Manufacturing</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>BFSI</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  <tr>
+  
+  <td>Education</td>
+  
+  <td>
+  
+  <span class="status active">
+  
+  Active
+  
+  </span>
+  
+  </td>
+  
+  <td>
+  
+  <div class="table-actions">
+  
+  <button
+  class="action-btn view">
+  
+  <i class="fa-solid fa-eye"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn edit">
+  
+  <i class="fa-solid fa-pen"></i>
+  
+  </button>
+  
+  <button
+  class="action-btn delete">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </button>
+  
+  </div>
+  
+  </td>
+  
+  </tr>
+  
+  </tbody>
+  
+  </table>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  EMPLOYERS MANAGER
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="applications">
+    
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  Employers Section
+  
+  </h2>
+  
+  <p>
+  
+  Manage employer page content.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <div class="form-grid">
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Heading
+  
+  </label>
+  
+  <input
+  type="text"
+  id="employerHeading"
+  placeholder="Hire Better Talent">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Description
+  
+  </label>
+  
+  <textarea
+  id="employerDescription"
+  placeholder="Employer section description..."></textarea>
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Button Text
+  
+  </label>
+  
+  <input
+  type="text"
+  id="employerButtonText"
+  placeholder="Hire Talent">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Button Link
+  
+  </label>
+  
+  <input
+  type="url"
+  id="employerButtonLink"
+  placeholder="https://">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Employer Google Form URL
+  
+  </label>
+  
+  <input
+  type="url"
+  id="employerGoogleForm"
+  placeholder="https://forms.gle/xxxxxxxx">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Employer Banner Image
+  
+  </label>
+  
+  <div class="upload-box">
+  
+  <i class="fa-solid fa-cloud-arrow-up"></i>
+  
+  <h4>
+  
+  Upload Employer Banner
+  
+  </h4>
+  
+  <p>
+  
+  JPG, PNG or WEBP
+  
+  </p>
+  
+  <input
+  type="file"
+  id="employerBanner"
+  accept="image/*"
+  hidden>
+  
+  </div>
+  
+  <div
+  class="image-preview"
+  id="employerBannerPreview">
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="action-bar">
+  
+  <button
+  class="btn btn-primary"
+  id="saveEmployers">
+  
+  Save Employers Section
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  FOOTER MANAGER
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="footer">
+  
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  Footer Settings
+  
+  </h2>
+  
+  <p>
+  
+  Manage contact details and social media links.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <div class="form-grid">
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Company Name
+  
+  </label>
+  
+  <input
+  type="text"
+  id="companyName"
+  value="GRAPTO">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Phone Number
+  
+  </label>
+  
+  <input
+  type="text"
+  id="companyPhone"
+  placeholder="+91 9876543210">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Email Address
+  
+  </label>
+  
+  <input
+  type="email"
+  id="companyEmail"
+  placeholder="contact@grapto.in">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Company Address
+  
+  </label>
+  
+  <textarea
+  id="companyAddress"
+  placeholder="Enter company address"></textarea>
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Facebook URL
+  
+  </label>
+  
+  <input
+  type="url"
+  id="facebookUrl"
+  placeholder="https://facebook.com/yourpage">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Instagram URL
+  
+  </label>
+  
+  <input
+  type="url"
+  id="instagramUrl"
+  placeholder="https://instagram.com/yourpage">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  LinkedIn URL
+  
+  </label>
+  
+  <input
+  type="url"
+  id="linkedinUrl"
+  placeholder="https://linkedin.com/company/yourcompany">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  YouTube URL
+  
+  </label>
+  
+  <input
+  type="url"
+  id="youtubeUrl"
+  placeholder="https://youtube.com/@yourchannel">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  WhatsApp Number
+  
+  </label>
+  
+  <input
+  type="text"
+  id="whatsappNumber"
+  placeholder="+91 9876543210">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Google Maps Link
+  
+  </label>
+  
+  <input
+  type="url"
+  id="googleMapsLink"
+  placeholder="https://maps.google.com/...">
+  
+  </div>
+  
+  </div>
+  
+  <div class="action-bar">
+  
+  <button
+  class="btn btn-primary"
+  id="saveFooter">
+  
+  Save Footer Settings
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+    MEDIA LIBRARY
+    ========================================== -->
+    
+    <section
+    class="admin-page"
+    id="media">
+    
+    <div class="content-card">
+    
+    <div class="card-header">
+    
+    <div>
+    
+    <h2>
+    
+    Media Library
+    
+    </h2>
+    
+    <p>
+    
+    Manage all website images and logos.
+    
+    </p>
+    
+    </div>
+    
+    </div>
+    
+    <div class="form-grid">
+    
+    <!-- Website Logo -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Website Logo
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload Website Logo
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG, SVG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="websiteLogo"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="websiteLogoPreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- Hero Image -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Hero Image
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload Hero Image
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="mediaHeroImage"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="mediaHeroPreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- About Image -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    About Image
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload About Image
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="mediaAboutImage"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="mediaAboutPreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- Employer Banner -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Employer Banner
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload Employer Banner
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="mediaEmployerBanner"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="mediaEmployerPreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- Candidate Banner -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Candidate Banner
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload Candidate Banner
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="mediaCandidateBanner"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="mediaCandidatePreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- Partner Logo -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Partner Logo
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-image"></i>
+    
+    <h4>
+    
+    Upload Partner Logo
+    
+    </h4>
+    
+    <p>
+    
+    PNG, JPG, SVG or WEBP
+    
+    </p>
+    
+    <input
+    type="file"
+    id="mediaPartnerLogo"
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="mediaPartnerPreview">
+    
+    </div>
+    
+    </div>
+    
+    <!-- Gallery -->
+    
+    <div class="form-group full">
+    
+    <label>
+    
+    Gallery Images
+    
+    </label>
+    
+    <div class="upload-box">
+    
+    <i class="fa-solid fa-images"></i>
+    
+    <h4>
+    
+    Upload Gallery Images
+    
+    </h4>
+    
+    <p>
+    
+    Multiple Upload Supported
+    
+    </p>
+    
+    <input
+    type="file"
+    id="galleryImages"
+    multiple
+    accept="image/*"
+    hidden>
+    
+    </div>
+    
+    <div
+    class="image-preview"
+    id="galleryPreview">
+    
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    <div class="action-bar">
+    
+    <button
+    class="btn btn-primary"
+    id="saveMedia">
+    
+    Save Media Library
+    
+    </button>
+    
+    </div>
+    
+    </div>
+    
+    </section><!-- ==========================================
+  SETTINGS
+  ========================================== -->
+  
+  <section
+  class="admin-page"
+  id="settings">
+  
+  <div class="content-card">
+  
+  <div class="card-header">
+  
+  <div>
+  
+  <h2>
+  
+  Website Settings
+  
+  </h2>
+  
+  <p>
+  
+  General configuration for GRAPTO.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <div class="form-grid">
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Website Title
+  
+  </label>
+  
+  <input
+  type="text"
+  id="websiteTitle"
+  placeholder="GRAPTO">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Website Tagline
+  
+  </label>
+  
+  <input
+  type="text"
+  id="websiteTagline"
+  placeholder="Recruitment • Staffing • HR Solutions">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Admin Email
+  
+  </label>
+  
+  <input
+  type="email"
+  id="adminEmail"
+  placeholder="admin@grapto.in">
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Support Email
+  
+  </label>
+  
+  <input
+  type="email"
+  id="supportEmail"
+  placeholder="support@grapto.in">
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Website Meta Description
+  
+  </label>
+  
+  <textarea
+  id="metaDescription"
+  placeholder="Website Meta Description"></textarea>
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Maintenance Mode
+  
+  </label>
+  
+  <select
+  id="maintenanceMode">
+  
+  <option value="Disabled" selected>
+  
+  Disabled
+  
+  </option>
+  
+  <option value="Enabled">
+  
+  Enabled
+  
+  </option>
+  
+  </select>
+  
+  </div>
+  
+  <div class="form-group">
+  
+  <label>
+  
+  Default Language
+  
+  </label>
+  
+  <select
+  id="defaultLanguage">
+  
+  <option selected>
+  
+  English
+  
+  </option>
+  
+  <option>
+  
+  Hindi
+  
+  </option>
+  
+  </select>
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Favicon
+  
+  </label>
+  
+  <div class="upload-box">
+  
+  <i class="fa-solid fa-earth-americas"></i>
+  
+  <h4>
+  
+  Upload Website Favicon
+  
+  </h4>
+  
+  <p>
+  
+  ICO, PNG or SVG
+  
+  </p>
+  
+  <input
+  type="file"
+  id="websiteFavicon"
+  accept=".ico,.png,.svg"
+  hidden>
+  
+  </div>
+  
+  <div
+  class="image-preview"
+  id="faviconPreview">
+  
+  </div>
+  
+  </div>
+  
+  <div class="form-group full">
+  
+  <label>
+  
+  Default Website Logo
+  
+  </label>
+  
+  <div class="upload-box">
+  
+  <i class="fa-solid fa-image"></i>
+  
+  <h4>
+  
+  Upload Primary Logo
+  
+  </h4>
+  
+  <p>
+  
+  PNG, SVG or WEBP
+  
+  </p>
+  
+  <input
+  type="file"
+  id="primaryLogo"
+  accept="image/*"
+  hidden>
+  
+  </div>
+  
+  <div
+  class="image-preview"
+  id="primaryLogoPreview">
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <div class="action-bar">
+  
+  <button
+  class="btn btn-primary"
+  id="saveSettings">
+  
+  Save Website Settings
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </section><!-- ==========================================
+  LOGOUT MODAL
+  ========================================== -->
+  
+  <div
+  class="modal-overlay"
+  id="logoutModal">
+  
+  <div class="modal">
+  
+  <div class="modal-icon">
+  
+  <i class="fa-solid fa-right-from-bracket"></i>
+  
+  </div>
+  
+  <h3>
+  
+  Logout
+  
+  </h3>
+  
+  <p>
+  
+  Are you sure you want to logout from the Admin Panel?
+  
+  </p>
+  
+  <div class="modal-actions">
+  
+  <button
+  class="btn btn-secondary"
+  id="cancelLogout">
+  
+  Cancel
+  
+  </button>
+  
+  <button
+  class="btn btn-primary"
+  id="confirmLogout">
+  
+  Logout
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <!-- ==========================================
+  DELETE CONFIRMATION MODAL
+  ========================================== -->
+  
+  <div
+  class="modal-overlay"
+  id="deleteModal">
+  
+  <div class="modal">
+  
+  <div class="modal-icon">
+  
+  <i class="fa-solid fa-trash"></i>
+  
+  </div>
+  
+  <h3>
+  
+  Delete Record
+  
+  </h3>
+  
+  <p
+  id="deleteMessage">
+  
+  Are you sure you want to delete this item?
+  
+  </p>
+  
+  <div class="modal-actions">
+  
+  <button
+  class="btn btn-secondary"
+  id="cancelDelete">
+  
+  Cancel
+  
+  </button>
+  
+  <button
+  class="btn btn-danger"
+  id="confirmDelete">
+  
+  Delete
+  
+  </button>
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  <!-- ==========================================
+  LOADING OVERLAY
+  ========================================== -->
+  
+  <div
+  class="loading-overlay"
+  id="loadingOverlay">
+  
+  <div class="loader"></div>
+  
+  <p>
+  
+  Please wait...
+  
+  </p>
+  
+  </div>
+  
+  <!-- ==========================================
+  SUCCESS TOAST
+  ========================================== -->
+  
+  <div
+  class="toast"
+  id="toast">
+  
+  <div class="toast-icon">
+  
+  <i class="fa-solid fa-circle-check"></i>
+  
+  </div>
+  
+  <div class="toast-content">
+  
+  <h4
+  id="toastTitle">
+  
+  Success
+  
+  </h4>
+  
+  <p
+  id="toastMessage">
+  
+  Operation completed successfully.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  <!-- ==========================================
+  ERROR TOAST
+  ========================================== -->
+  
+  <div
+  class="toast error"
+  id="errorToast">
+  
+  <div class="toast-icon">
+  
+  <i class="fa-solid fa-circle-exclamation"></i>
+  
+  </div>
+  
+  <div class="toast-content">
+  
+  <h4
+  id="errorToastTitle">
+  
+  Error
+  
+  </h4>
+  
+  <p
+  id="errorToastMessage">
+  
+  Something went wrong.
+  
+  </p>
+  
+  </div>
+  
+  </div>
+  
+  </div>
+  
+  </div><!-- ==========================================
+  GRAPTO ADMIN PANEL
+  Version 1.0
+  ========================================== -->
+  
+    <script src="assets/js/firebase.js"></script>
+  <script src="assets/js/admin.js"></script>
+    
+  </body>
+  
+  </html>
