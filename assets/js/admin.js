@@ -10,7 +10,6 @@
             industries: "website/industries",
         
             employers: "website/employers",
-            candidates: "website/candidates",
         
             contact: "website/contact",
             settings: "website/settings",
