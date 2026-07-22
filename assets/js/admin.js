@@ -19,14 +19,17 @@ const Admin = {
 
     init() {
 
-        if (!window.db || !window.storage) {
-            this.toast(
-                "Error",
-                "Firebase did not load. Check firebase configuration.",
-                true
-            );
-            return;
-        }
+        if (!window.db || !window.auth || !window.uploadImage) {
+
+    this.toast(
+        "Error",
+        "Backend failed to load.",
+        true
+    );
+
+    return;
+
+}
 
         this.removeDuplicateMediaSection();
 
