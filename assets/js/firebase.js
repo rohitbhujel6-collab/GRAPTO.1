@@ -1,15 +1,21 @@
 /* ==========================================================
+
    GRAPTO
+
    FIREBASE & BACKEND CORE
-   Version : 3.1
-   Storage Upload Repair
+
+   Version : 3.2
+
+   Cloudinary Enabled
+
 ========================================================== */
 
 "use strict";
 
-
 /* ==========================================================
+
    FIREBASE CONFIGURATION
+
 ========================================================== */
 
 const firebaseConfig = {
@@ -25,9 +31,6 @@ const firebaseConfig = {
     projectId:
     "grapto-43823",
 
-    storageBucket:
-    "grapto-43823.firebasestorage.app",
-
     messagingSenderId:
     "80168453473",
 
@@ -36,9 +39,26 @@ const firebaseConfig = {
 
 };
 
+/* ==========================================================
+
+   CLOUDINARY CONFIGURATION
+
+========================================================== */
+
+const CLOUDINARY = {
+
+    cloudName: "iwpvy0yv",
+
+    uploadPreset: "grapto_upload"
+
+};
+
+window.CLOUDINARY = CLOUDINARY;
 
 /* ==========================================================
+
    FIREBASE INITIALIZATION
+
 ========================================================== */
 
 if (!firebase.apps.length) {
@@ -47,32 +67,29 @@ if (!firebase.apps.length) {
 
 }
 
-
 const db = firebase.database();
 
 const auth = firebase.auth();
 
-const storage = firebase.storage();
-
-
-
 /* ==========================================================
+
    GLOBAL EXPORTS
+
 ========================================================== */
 
 window.db = db;
 
 window.auth = auth;
 
-window.storage = storage;
+console.log("GRAPTO Firebase initialized");
 
+/* ==========================================================
 
-console.log("GRAPTO Firebase initialized");/* ==========================================================
    DATABASE ROOTS
+
 ========================================================== */
 
 const WEBSITE_ROOT = "website";
-
 
 const ROOT = {
 
@@ -82,62 +99,46 @@ const ROOT = {
 
     homepage: "website/homepage",
 
-    services:
-    "website/services",
+    services: "website/services",
 
-    employers:
-    "website/employers",
+    employers: "website/employers",
 
-    candidates:
-    "website/candidates",
+    candidates: "website/candidates",
 
-    industries:
-    "website/industries",
+    industries: "website/industries",
 
-    jobs:
-    "website/jobs",
+    jobs: "website/jobs",
 
-    contact:
-    "website/contact",
+    contact: "website/contact",
 
-    enquiries:
-    "website/enquiries",
+    enquiries: "website/enquiries",
 
-    newsletter:
-    "website/newsletter",
+    newsletter: "website/newsletter",
 
-    visitors:
-    "website/visitors",
+    visitors: "website/visitors",
 
-    analytics:
-    "website/analytics",
+    analytics: "website/analytics",
 
-    hotels:
-    "website/hotels",
+    hotels: "website/hotels",
 
-    packages:
-    "website/packages",
+    packages: "website/packages",
 
-    homestays:
-    "website/homestays",
+    homestays: "website/homestays",
 
-    gallery:
-    "website/gallery",
+    gallery: "website/gallery",
 
-    testimonials:
-    "website/testimonials"
+    testimonials: "website/testimonials"
 
 };
-
 
 window.WEBSITE_ROOT = WEBSITE_ROOT;
 
 window.DB_ROOT = ROOT;
 
-
-
 /* ==========================================================
+
    FIREBASE REFERENCES
+
 ========================================================== */
 
 const refs = {
@@ -192,11 +193,11 @@ const refs = {
 
 };
 
-
 window.refs = refs;/* ==========================================================
-   DATABASE HELPERS
-========================================================== */
 
+   DATABASE HELPERS
+
+========================================================== */
 
 function createReference(path){
 
@@ -204,24 +205,21 @@ function createReference(path){
 
 }
 
-
 function generateKey(path){
 
     return db.ref(path).push().key;
 
 }
 
-
 window.createReference = createReference;
 
 window.generateKey = generateKey;
 
-
-
 /* ==========================================================
-   FIREBASE CRUD HELPERS
-========================================================== */
 
+   FIREBASE CRUD HELPERS
+
+========================================================== */
 
 async function saveData(path, data) {
 
@@ -231,34 +229,29 @@ async function saveData(path, data) {
 
         return {
 
-            success:true,
+            success: true,
 
-            message:"Data saved successfully."
+            message: "Data saved successfully."
 
         };
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(
-            "Save failed:",
-            error
-        );
+        console.error("Save failed:", error);
 
         return {
 
-            success:false,
+            success: false,
 
-            message:error.message
+            message: error.message
 
         };
 
     }
 
 }
-
-
 
 async function updateData(path, data) {
 
@@ -270,20 +263,15 @@ async function updateData(path, data) {
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(
-            "Update failed:",
-            error
-        );
+        console.error("Update failed:", error);
 
         return false;
 
     }
 
 }
-
-
 
 async function deleteData(path) {
 
@@ -295,12 +283,9 @@ async function deleteData(path) {
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(
-            "Delete failed:",
-            error
-        );
+        console.error("Delete failed:", error);
 
         return false;
 
@@ -308,64 +293,47 @@ async function deleteData(path) {
 
 }
 
-
-
 async function readData(path) {
 
     try {
 
-        const snapshot =
-        await db.ref(path).once("value");
-
+        const snapshot = await db.ref(path).once("value");
 
         return snapshot.val();
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(
-            "Read failed:",
-            error
-        );
+        console.error("Read failed:", error);
 
         return null;
 
     }
 
 }
-
-
 
 async function pushData(path, data) {
 
     try {
 
-        const ref =
-        db.ref(path).push();
-
+        const ref = db.ref(path).push();
 
         await ref.set(data);
-
 
         return ref.key;
 
     }
 
-    catch(error){
+    catch (error) {
 
-        console.error(
-            "Push failed:",
-            error
-        );
+        console.error("Push failed:", error);
 
         return null;
 
     }
 
 }
-
-
 
 window.saveData = saveData;
 
@@ -376,173 +344,154 @@ window.deleteData = deleteData;
 window.readData = readData;
 
 window.pushData = pushData;/* ==========================================================
-   FIREBASE STORAGE IMAGE UPLOAD
+
+   CLOUDINARY IMAGE UPLOAD
+
 ========================================================== */
 
-
-async function uploadImage(file, path) {
-
+async function uploadImage(file, folder = "grapto") {
 
     if (!file) {
 
         return {
 
-            success:false,
+            success: false,
 
-            message:
-            "Please select an image."
+            message: "Please select an image."
 
         };
 
     }
 
-
-
-    if (!file.type ||
-        !file.type.startsWith("image/")) {
-
+    if (!file.type || !file.type.startsWith("image/")) {
 
         return {
 
-            success:false,
+            success: false,
 
-            message:
-            "Only image files are allowed."
+            message: "Only image files are allowed."
 
         };
 
     }
 
-
-
     try {
 
+        const formData = new FormData();
 
-        const safeName =
-        file.name
-        .replace(/[^a-zA-Z0-9._-]/g, "-");
+        formData.append("file", file);
 
-
-
-        const filePath =
-        `${path}/${Date.now()}-${safeName}`;
-
-
-
-        console.log(
-            "Uploading image:",
-            filePath
+        formData.append(
+            "upload_preset",
+            CLOUDINARY.uploadPreset
         );
 
+        formData.append(
+            "folder",
+            folder
+        );
 
+        const response = await fetch(
 
-        const storageRef =
-        storage.ref(filePath);
+            `https://api.cloudinary.com/v1_1/${CLOUDINARY.cloudName}/image/upload`,
 
-
-
-        const uploadTask =
-        await storageRef.put(
-            file,
             {
 
-                contentType:
-                file.type
+                method: "POST",
+
+                body: formData
 
             }
 
         );
 
+        const result = await response.json();
 
+        if (!response.ok) {
 
-        const downloadURL =
-        await uploadTask.ref.getDownloadURL();
+            throw new Error(
 
+                result.error?.message ||
 
+                "Cloudinary upload failed."
+
+            );
+
+        }
 
         console.log(
-            "Image uploaded:",
-            downloadURL
+
+            "Cloudinary Upload Successful:",
+
+            result.secure_url
+
         );
-
-
 
         return {
 
+            success: true,
 
-            success:true,
+            url: result.secure_url,
 
+            public_id: result.public_id,
 
-            url:
-            downloadURL,
+            original_filename: result.original_filename,
 
+            width: result.width,
 
-            path:
-            filePath
+            height: result.height,
 
+            format: result.format,
+
+            bytes: result.bytes
 
         };
 
-
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
-            "Storage Upload Error:",
+
+            "Cloudinary Upload Error:",
+
             error
+
         );
-
-
 
         return {
 
+            success: false,
 
-            success:false,
-
-
-            message:
-            error.message ||
-            "Image upload failed."
-
+            message: error.message
 
         };
 
-
     }
-
 
 }
 
+window.uploadImage = uploadImage;/* ==========================================================
 
-
-window.uploadImage =
-uploadImage;/* ==========================================================
    GOOGLE FORM LINKS
-========================================================== */
 
+========================================================== */
 
 const GOOGLE_FORMS = {
 
-    candidate:"",
+    candidate: "",
 
-    employer:"",
+    employer: "",
 
-    contact:""
+    contact: ""
 
 };
 
+window.GOOGLE_FORMS = GOOGLE_FORMS;
 
-window.GOOGLE_FORMS =
-GOOGLE_FORMS;
+function openCandidateForm() {
 
-
-
-function openCandidateForm(){
-
-    if(!GOOGLE_FORMS.candidate){
+    if (!GOOGLE_FORMS.candidate) {
 
         console.warn(
             "Candidate form not configured."
@@ -552,7 +501,6 @@ function openCandidateForm(){
 
     }
 
-
     window.open(
         GOOGLE_FORMS.candidate,
         "_blank"
@@ -560,11 +508,9 @@ function openCandidateForm(){
 
 }
 
+function openEmployerForm() {
 
-
-function openEmployerForm(){
-
-    if(!GOOGLE_FORMS.employer){
+    if (!GOOGLE_FORMS.employer) {
 
         console.warn(
             "Employer form not configured."
@@ -574,7 +520,6 @@ function openEmployerForm(){
 
     }
 
-
     window.open(
         GOOGLE_FORMS.employer,
         "_blank"
@@ -582,11 +527,9 @@ function openEmployerForm(){
 
 }
 
+function openContactForm() {
 
-
-function openContactForm(){
-
-    if(!GOOGLE_FORMS.contact){
+    if (!GOOGLE_FORMS.contact) {
 
         console.warn(
             "Contact form not configured."
@@ -596,7 +539,6 @@ function openContactForm(){
 
     }
 
-
     window.open(
         GOOGLE_FORMS.contact,
         "_blank"
@@ -604,36 +546,27 @@ function openContactForm(){
 
 }
 
-
-
 window.openCandidateForm =
 openCandidateForm;
-
 
 window.openEmployerForm =
 openEmployerForm;
 
-
 window.openContactForm =
 openContactForm;
 
-
-
-
-function watchGoogleForms(){
+function watchGoogleForms() {
 
     db.ref(
         "website/settings/googleForms"
-    )
-    .on(
-        "value",
-        snapshot=>{
+    ).on(
 
+        "value",
+
+        snapshot => {
 
             const data =
             snapshot.val() || {};
-
-
 
             GOOGLE_FORMS.candidate =
             data.candidate || "";
@@ -644,26 +577,33 @@ function watchGoogleForms(){
             GOOGLE_FORMS.contact =
             data.contact || "";
 
-
-
             window.dispatchEvent(
+
                 new CustomEvent(
+
                     "grapto:googleFormsUpdated",
+
                     {
+
                         detail:
                         GOOGLE_FORMS
-                    }
-                )
-            );
 
+                    }
+
+                )
+
+            );
 
         },
 
-        error=>{
+        error => {
 
             console.error(
+
                 "Google form loading failed:",
+
                 error
+
             );
 
         }
@@ -672,271 +612,202 @@ function watchGoogleForms(){
 
 }
 
-
-window.watchGoogleForms =
-watchGoogleForms;
-
-
-
 /* ==========================================================
+
    ANALYTICS
+
 ========================================================== */
 
-
-function logVisitor(page="home"){
-
+function logVisitor(page = "home") {
 
     const data = {
 
-
         page,
-
 
         userAgent:
         navigator.userAgent,
 
-
         language:
         navigator.language,
-
 
         platform:
         navigator.platform,
 
-
         time:
-        new Date()
-        .toISOString()
-
+        new Date().toISOString()
 
     };
 
-
-
     db.ref(
         ROOT.visitors
-    )
-    .push(data);
-
+    ).push(data);
 
 }
 
+window.logVisitor = logVisitor;/* ==========================================================
 
-
-window.logVisitor =
-logVisitor;
-
-
-
-/* ==========================================================
    DEFAULT SETTINGS
+
 ========================================================== */
 
-
 const DEFAULT_SETTINGS = {
-
 
     websiteName:
     "GRAPTO",
 
-
     tagline:
     "Connecting Talent. Empowering Businesses.",
 
-
     version:
-    "3.1",
-
+    "3.2",
 
     theme:
     "default",
 
-
     lastUpdated:
-    new Date()
-    .toISOString()
-
+    new Date().toISOString()
 
 };
-
-
 
 window.DEFAULT_SETTINGS =
 DEFAULT_SETTINGS;
 
+/* ==========================================================
 
+   WEBSITE INITIALIZATION
 
+========================================================== */
 
-async function initializeWebsite(){
+async function initializeWebsite() {
 
-
-    try{
-
+    try {
 
         const snapshot =
         await refs.settings.once(
             "value"
         );
 
-
-
-        if(!snapshot.exists()){
-
+        if (!snapshot.exists()) {
 
             await refs.settings.set(
                 DEFAULT_SETTINGS
             );
 
-
             console.log(
                 "Default settings created."
             );
 
-
         }
-
 
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
             "Website initialization failed:",
             error
         );
 
-
     }
 
-
 }
-
-
 
 window.initializeWebsite =
 initializeWebsite;
 
-
-
 /* ==========================================================
+
    FIREBASE CONNECTION CHECK
+
 ========================================================== */
 
+async function testFirebaseConnection() {
 
-async function testFirebaseConnection(){
-
-
-    try{
-
+    try {
 
         await db.ref(
             ".info/connected"
-        )
-        .once("value");
-
-
+        ).once("value");
 
         console.log(
             "Firebase connection verified."
         );
 
-
         return true;
-
 
     }
 
-
-    catch(error){
-
+    catch (error) {
 
         console.error(
             "Firebase connection failed:",
             error
         );
 
-
         return false;
-
 
     }
 
-
 }
-
-
 
 window.testFirebaseConnection =
 testFirebaseConnection;
 
-
-
-
 /* ==========================================================
+
    APPLICATION STARTUP
+
 ========================================================== */
 
-
 document.addEventListener(
-"DOMContentLoaded",
-async()=>{
 
+    "DOMContentLoaded",
 
-    console.log(
-    "========================================"
-    );
+    async () => {
 
+        console.log(
+            "========================================"
+        );
 
-    console.log(
-    " GRAPTO Backend Core Loaded"
-    );
+        console.log(
+            " GRAPTO Backend Core Loaded"
+        );
 
+        console.log(
+            "========================================"
+        );
 
-    console.log(
-    "========================================"
-    );
+        console.log(
+            "Project:",
+            firebaseConfig.projectId
+        );
 
+        console.log(
+            "Realtime Database: Ready"
+        );
 
+        console.log(
+            "Authentication: Ready"
+        );
 
-    console.log(
-        "Project:",
-        firebaseConfig.projectId
-    );
+        console.log(
+            "Cloudinary: Ready"
+        );
 
+        await testFirebaseConnection();
 
+        await initializeWebsite();
 
-    console.log(
-        "Realtime Database: Ready"
-    );
+        watchGoogleForms();
 
+        console.log(
+            "Backend initialization complete."
+        );
 
-    console.log(
-        "Authentication: Ready"
-    );
+        console.log(
+            "========================================"
+        );
 
+    }
 
-
-    await testFirebaseConnection();
-
-
-    await initializeWebsite();
-
-
-    watchGoogleForms();
-
-
-
-    console.log(
-    "Backend initialization complete."
-    );
-
-
-
-    console.log(
-    "========================================"
-    );
-
-
-});
+);
