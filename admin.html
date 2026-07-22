@@ -1474,7 +1474,36 @@ placeholder="Whether you're hiring employees or searching for your next job, cho
     
   </div>
   
-  <div class="form-group">
+<div class="form-group full">
+
+<label>
+
+Employer Title
+
+</label>
+
+<input
+type="text"
+id="employerTitle"
+placeholder="For Employers">
+
+</div>
+
+    <div class="form-group full">
+
+<label>
+
+Employer Description
+
+</label>
+
+<textarea
+id="employerDescription"
+placeholder="Looking to hire skilled professionals? Submit your hiring requirements and we'll connect you with the right candidates."></textarea>
+
+</div>
+    
+    <div class="form-group">
   
   <label>
   
@@ -1486,21 +1515,6 @@ placeholder="Whether you're hiring employees or searching for your next job, cho
   type="text"
   id="employerButtonText"
   placeholder="Hire Talent">
-  
-  </div>
-  
-  <div class="form-group">
-  
-  <label>
-  
-  Button Link
-  
-  </label>
-  
-  <input
-  type="url"
-  id="employerButtonLink"
-  placeholder="https://">
   
   </div>
   
@@ -1518,49 +1532,68 @@ placeholder="Whether you're hiring employees or searching for your next job, cho
   placeholder="https://forms.gle/xxxxxxxx">
   
   </div>
-  
-  <div class="form-group full">
-  
-  <label>
-  
-  Employer Banner Image
-  
-  </label>
-  
-  <div class="upload-box">
-  
-  <i class="fa-solid fa-cloud-arrow-up"></i>
-  
-  <h4>
-  
-  Upload Employer Banner
-  
-  </h4>
-  
-  <p>
-  
-  JPG, PNG or WEBP
-  
-  </p>
-  
-  <input
-  type="file"
-  id="employerBanner"
-  accept="image/*"
-  hidden>
-  
-  </div>
-  
-  <div
-  class="image-preview"
-  id="employerBannerPreview">
-  
-  </div>
-  
-  </div>
-  
-  </div>
-  
+    
+  <!-- Candidate Section -->
+
+<div class="form-group full">
+
+<label>
+
+Candidate Title
+
+</label>
+
+<input
+type="text"
+id="candidateTitle"
+placeholder="For Candidates">
+
+</div>
+
+<div class="form-group full">
+
+<label>
+
+Candidate Description
+
+</label>
+
+<textarea
+id="candidateDescription"
+placeholder="Looking for your next job? Apply now and let us connect you with the right employer."></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>
+
+Candidate Button Text
+
+</label>
+
+<input
+type="text"
+id="candidateButtonText"
+placeholder="Apply Now">
+
+</div>
+
+<div class="form-group full">
+
+<label>
+
+Candidate Google Form URL
+
+</label>
+
+<input
+type="url"
+id="candidateGoogleForm"
+placeholder="https://forms.gle/xxxxxxxx">
+
+</div>
+    
   <div class="action-bar">
   
   <button
