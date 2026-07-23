@@ -31,8 +31,14 @@ const GRAPTO = {
             this.renderFooter(website.contact || {});
             this.renderMedia(website.media || {});
             this.applyForms({
-    employer: website.applications?.employer?.googleForm || "",
-    candidate: website.applications?.candidate?.googleForm || ""
+    employer: {
+        url: website.applications?.employer?.googleForm || "",
+        text: website.applications?.employer?.buttonText || "Hire Talent"
+    },
+    candidate: {
+        url: website.applications?.candidate?.googleForm || "",
+        text: website.applications?.candidate?.buttonText || "Apply Now"
+    }
 });
 
         }, error => {
@@ -271,31 +277,27 @@ const GRAPTO = {
     const candidateContainer =
         document.getElementById("candidateFormContainer");
 
-
-    if (employerContainer && forms.employer) {
+    if (employerContainer && forms.employer.url) {
 
         employerContainer.innerHTML = `
-            <a 
-            href="${forms.employer}" 
-            class="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer">
-            Apply Now
+            <a href="${forms.employer.url}"
+               class="btn btn-primary"
+               target="_blank"
+               rel="noopener noreferrer">
+               ${forms.employer.text}
             </a>
         `;
 
     }
 
-
-    if (candidateContainer && forms.candidate) {
+    if (candidateContainer && forms.candidate.url) {
 
         candidateContainer.innerHTML = `
-            <a 
-            href="${forms.candidate}" 
-            class="btn btn-primary"
-            target="_blank"
-            rel="noopener noreferrer">
-            Apply Now
+            <a href="${forms.candidate.url}"
+               class="btn btn-primary"
+               target="_blank"
+               rel="noopener noreferrer">
+               ${forms.candidate.text}
             </a>
         `;
 
